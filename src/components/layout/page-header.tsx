@@ -4,9 +4,9 @@ import { Breadcrumbs, type Crumb } from "@/components/navigation/breadcrumbs";
 
 interface PageHeaderProps {
   title: string;
-  description?: string;
-  eyebrow?: string;
-  crumbs?: Crumb[];
+  description?: string | undefined;
+  eyebrow?: string | undefined;
+  crumbs?: Crumb[] | undefined;
   children?: ReactNode;
 }
 

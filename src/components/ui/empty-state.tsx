@@ -8,7 +8,7 @@ export function EmptyState({
 }: {
   title: string;
   description: string;
-  action?: ReactNode;
+  action?: ReactNode | undefined;
 }) {
   return (
     <div className="border-border bg-surface/40 rounded-xl border border-dashed p-8 text-center">

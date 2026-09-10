@@ -4,13 +4,13 @@ import { Container } from "./container";
 
 interface SectionProps {
   children: ReactNode;
-  className?: string;
-  id?: string;
+  className?: string | undefined;
+  id?: string | undefined;
   /** Etiqueta accesible cuando la sección no tiene encabezado visible. */
-  ariaLabel?: string;
-  ariaLabelledby?: string;
-  size?: "default" | "narrow";
-  tone?: "default" | "muted";
+  ariaLabel?: string | undefined;
+  ariaLabelledby?: string | undefined;
+  size?: "default" | "narrow" | undefined;
+  tone?: "default" | "muted" | undefined;
 }
 
 /** Bloque vertical estándar: ritmo de espaciado único para todas las páginas. */
@@ -40,10 +40,10 @@ export function Section({
 }
 
 interface SectionHeaderProps {
-  eyebrow?: string;
+  eyebrow?: string | undefined;
   title: string;
-  description?: string;
-  id?: string;
+  description?: string | undefined;
+  id?: string | undefined;
   /** Nivel semántico del encabezado; por defecto h2. */
   as?: "h2" | "h3";
   align?: "start" | "center";

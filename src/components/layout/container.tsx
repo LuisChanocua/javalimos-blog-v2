@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 interface ContainerProps {
   children: ReactNode;
   className?: string;
-  size?: "default" | "narrow";
+  size?: "default" | "narrow" | undefined;
 }
 
 /** Ancho máximo y padding horizontal consistentes en todo el sitio. */

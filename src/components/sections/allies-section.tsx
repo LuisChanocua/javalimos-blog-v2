@@ -15,9 +15,9 @@ export function AlliesSection({
   emptyDescription,
 }: {
   id: string;
-  eyebrow?: string;
+  eyebrow?: string | undefined;
   title: string;
-  description?: string;
+  description?: string | undefined;
   items: Ally[];
   emptyDescription: string;
 }) {
