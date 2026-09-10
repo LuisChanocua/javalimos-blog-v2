@@ -1,7 +1,9 @@
 /** Navegación centralizada: agregar una ruta aquí la publica en header y footer. */
+import type { AppRoute } from "@/types/routes";
+
 export interface NavItem {
   label: string;
-  to: string;
+  to: AppRoute;
   description?: string;
 }
 

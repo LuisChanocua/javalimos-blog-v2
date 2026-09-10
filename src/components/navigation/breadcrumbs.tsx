@@ -2,10 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import type { AppRoute } from "@/types/routes";
+
 export interface Crumb {
   label: string;
   /** Sin `to` se considera la página actual. */
-  to?: string;
+  to?: AppRoute | undefined;
 }
 
 export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: string | undefined }) {

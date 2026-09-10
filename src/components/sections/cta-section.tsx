@@ -2,18 +2,19 @@ import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { OPENNESS_NOTE } from "@/config/site";
+import type { AppRoute } from "@/types/routes";
 
 /** CTA final reutilizable en varias páginas. */
 export function CtaSection({
   title = "Una comunidad abierta a más personas",
   body = "No necesitas estudiar Ingeniería en Sistemas ni pertenecer al ITSH para acercarte a JavaLimo++.",
   ctaLabel = "Quiero participar",
-  ctaTo = "/comunidad",
+  ctaTo = "/comunidad" as AppRoute,
 }: {
-  title?: string;
-  body?: string;
-  ctaLabel?: string;
-  ctaTo?: string;
+  title?: string | undefined;
+  body?: string | undefined;
+  ctaLabel?: string | undefined;
+  ctaTo?: AppRoute | undefined;
 }) {
   return (
     <Section ariaLabelledby="cta-final">
