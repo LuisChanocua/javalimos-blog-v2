@@ -34,9 +34,9 @@ export function PostPage({ post }: { post: BlogPost }) {
           {readingMinutes(post.body)} min de lectura
         </p>
         {post.demo ? (
-          <p className="mt-4">
+          <div className="mt-4">
             <Badge variant="outline">Contenido de ejemplo</Badge>
-          </p>
+          </div>
         ) : null}
       </PageHeader>
 

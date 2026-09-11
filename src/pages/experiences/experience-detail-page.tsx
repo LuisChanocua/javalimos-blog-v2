@@ -42,9 +42,9 @@ export function ExperienceDetailPage({ experience }: { experience: Experience })
           ) : null}
         </dl>
         {experience.demo ? (
-          <p className="mt-4">
+          <div className="mt-4">
             <Badge variant="outline">Contenido de ejemplo</Badge>
-          </p>
+          </div>
         ) : null}
       </PageHeader>
 

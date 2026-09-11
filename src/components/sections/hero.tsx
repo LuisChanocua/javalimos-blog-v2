@@ -15,8 +15,10 @@ export function Hero() {
           id="hero-titulo"
           className="mt-6 max-w-4xl text-4xl leading-[1.05] font-bold sm:text-5xl lg:text-6xl"
         >
-          Java<span className="text-primary">Limo++</span>
-          <span className="text-gradient block">
+          <span className="text-muted-foreground block text-2xl font-semibold sm:text-3xl">
+            Java<span className="text-primary">Limo++</span>
+          </span>
+          <span className="text-gradient mt-2 block">
             Aprendemos, compartimos y crecemos a través de la programación y la tecnología.
           </span>
         </h1>
