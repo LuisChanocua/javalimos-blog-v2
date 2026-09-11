@@ -1,41 +1,45 @@
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/container";
+import { Isotype } from "@/components/brand/isotype";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden" aria-labelledby="hero-titulo">
       <div aria-hidden="true" className="surface-grid pointer-events-none absolute inset-0" />
-      <Container className="relative py-16 sm:py-24 lg:py-32">
-        <p className="border-border bg-surface text-muted-foreground inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs tracking-[0.15em] uppercase">
-          Comunidad de programación y tecnología
-        </p>
 
-        <h1
-          id="hero-titulo"
-          className="mt-6 max-w-4xl text-4xl leading-[1.05] font-bold sm:text-5xl lg:text-6xl"
-        >
-          <span className="text-muted-foreground block text-2xl font-semibold sm:text-3xl">
-            Java<span className="text-primary">Limo++</span>
-          </span>
-          <span className="text-gradient mt-2 block">
-            Aprendemos, compartimos y crecemos a través de la programación y la tecnología.
-          </span>
-        </h1>
+      <Container className="relative pt-16 pb-14 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-28">
+        <div className="grid items-center gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <p className="type-meta text-primary">JavaLimo++</p>
 
-        <p className="text-muted-foreground mt-6 max-w-2xl text-base leading-relaxed sm:text-lg">
-          JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas en el Instituto
-          Tecnológico Superior de Huetamo y hoy busca conectar a personas interesadas en aprender,
-          crear, competir y compartir conocimiento.
-        </p>
+            <h1 id="hero-titulo" className="type-display mt-6 max-w-[15ch]">
+              Programar se aprende mejor cuando no lo haces{" "}
+              <span className="text-primary">solo.</span>
+            </h1>
 
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button asChild size="lg">
-            <Link to="/nosotros">Conoce JavaLimo++</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link to="/comunidad">Forma parte de la comunidad</Link>
-          </Button>
+            <p className="type-lead text-muted-foreground mt-8 max-w-xl">
+              Somos una comunidad para aprender, compartir conocimiento, resolver problemas y crecer
+              a través de la tecnología.
+            </p>
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg">
+                <Link to="/nosotros">Conoce JavaLimo++</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link to="/comunidad">Participa</Link>
+              </Button>
+            </div>
+          </div>
+
+          <div className="relative hidden lg:col-span-4 lg:block">
+            <Isotype className="ml-auto w-full max-w-[16rem] drop-shadow-[0_24px_48px_rgba(23,58,94,0.18)]" />
+            <span
+              aria-hidden="true"
+              className="bg-primary/10 absolute -top-10 -right-10 -z-10 size-40 hex-clip"
+            />
+          </div>
         </div>
       </Container>
     </section>
