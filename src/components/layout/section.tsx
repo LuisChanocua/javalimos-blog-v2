@@ -29,8 +29,8 @@ export function Section({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       className={cn(
-        "py-14 sm:py-20",
-        tone === "muted" && "bg-surface/60 border-y border-border",
+        "py-16 sm:py-24 lg:py-32",
+        tone === "muted" && "bg-surface border-y border-border",
         className,
       )}
     >
@@ -58,15 +58,15 @@ export function SectionHeader({
   align = "start",
 }: SectionHeaderProps) {
   return (
-    <div className={cn("max-w-2xl", align === "center" && "mx-auto text-center")}>
+    <div className={cn("max-w-4xl", align === "center" && "mx-auto text-center")}>
       {eyebrow ? (
-        <p className="text-primary mb-3 font-mono text-xs tracking-[0.2em] uppercase">{eyebrow}</p>
+        <p className="text-primary mb-5 text-xs font-bold uppercase">{eyebrow}</p>
       ) : null}
-      <Heading id={id} className="text-2xl font-semibold sm:text-3xl">
+      <Heading id={id} className="section-title">
         {title}
       </Heading>
       {description ? (
-        <p className="text-muted-foreground mt-3 text-base leading-relaxed">{description}</p>
+        <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-relaxed sm:text-lg">{description}</p>
       ) : null}
     </div>
   );
