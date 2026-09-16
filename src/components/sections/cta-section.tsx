@@ -1,13 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
-import { OPENNESS_NOTE } from "@/config/site";
 import type { AppRoute } from "@/types/routes";
 
 /** CTA final reutilizable en varias páginas. */
 export function CtaSection({
-  title = "Una comunidad abierta a más personas",
-  body = "No necesitas estudiar Ingeniería en Sistemas ni pertenecer al ITSH para acercarte a JavaLimo++.",
+  title = "La siguiente idea puede empezar contigo.",
+  body = "Ven a aprender, comparte lo que sabes o propón una nueva forma de hacer comunidad alrededor de la tecnología.",
   ctaLabel = "Quiero participar",
   ctaTo = "/comunidad" as AppRoute,
 }: {
@@ -17,20 +16,19 @@ export function CtaSection({
   ctaTo?: AppRoute | undefined;
 }) {
   return (
-    <Section ariaLabelledby="cta-final">
-      <div className="border-border bg-surface relative overflow-hidden rounded-2xl border p-8 sm:p-12">
-        <div aria-hidden="true" className="surface-grid pointer-events-none absolute inset-0" />
-        <div className="relative max-w-2xl">
-          <h2 id="cta-final" className="text-2xl font-semibold sm:text-3xl">
+    <Section ariaLabelledby="cta-final" tone="muted">
+        <div className="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="max-w-4xl">
+          <p className="text-primary mb-5 text-xs font-bold uppercase">++ seguimos</p>
+          <h2 id="cta-final" className="section-title">
             {title}
           </h2>
-          <p className="text-muted-foreground mt-4 leading-relaxed">{body}</p>
-          <p className="text-muted-foreground mt-3 text-sm leading-relaxed">{OPENNESS_NOTE}</p>
-          <Button asChild size="lg" className="mt-7">
+          <p className="text-muted-foreground lead-copy mt-6 max-w-2xl">{body}</p>
+          </div>
+          <Button asChild size="lg">
             <Link to={ctaTo}>{ctaLabel}</Link>
           </Button>
         </div>
-      </div>
     </Section>
   );
 }

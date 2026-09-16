@@ -1,13 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { PhotoPlaceholder } from "@/components/media/photo-placeholder";
 import { categoryLabel } from "@/content/experiences";
 import { formatDate } from "@/lib/format";
 import type { Experience } from "@/types/content";
 
 export function ExperienceCard({ experience }: { experience: Experience }) {
   return (
-    <article className="group border-border bg-card hover:border-primary/50 relative flex flex-col overflow-hidden rounded-xl border transition-colors">
+    <article className="group border-border bg-card hover:border-primary/50 relative flex h-full min-w-0 flex-col overflow-hidden rounded-sm border transition-colors">
       {experience.coverImage ? (
         <img
           src={experience.coverImage.src}
@@ -18,7 +19,9 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
           decoding="async"
           className="aspect-video w-full object-cover"
         />
-      ) : null}
+      ) : (
+        <PhotoPlaceholder className="aspect-video min-h-0" />
+      )}
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex flex-wrap items-center gap-2">
@@ -26,7 +29,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
           {experience.demo ? <Badge variant="outline">Contenido de ejemplo</Badge> : null}
         </div>
 
-        <h3 className="mt-3 text-lg font-semibold">
+        <h3 className="mt-4 min-w-0 text-xl leading-tight font-semibold break-words sm:text-2xl">
           <Link
             to="/experiencias/$slug"
             params={{ slug: experience.slug }}
@@ -40,7 +43,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
           {experience.excerpt}
         </p>
 
-        <dl className="text-muted-foreground mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+        <dl className="text-muted-foreground mt-4 flex min-w-0 flex-wrap gap-x-4 gap-y-1 text-xs">
           <div className="flex items-center gap-1.5">
             <CalendarDays aria-hidden="true" className="size-3.5" />
             <dt className="sr-only">Fecha</dt>
@@ -52,7 +55,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
             <div className="flex items-center gap-1.5">
               <MapPin aria-hidden="true" className="size-3.5" />
               <dt className="sr-only">Lugar</dt>
-              <dd>{experience.location}</dd>
+              <dd className="break-words">{experience.location}</dd>
             </div>
           ) : null}
         </dl>

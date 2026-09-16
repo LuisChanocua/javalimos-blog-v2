@@ -12,14 +12,14 @@ export function BlogPage() {
     <>
       <PageHeader
         eyebrow="Blog"
-        title="Programación, algoritmos y tecnología"
-        description="Guías, apuntes y reflexiones escritas por la comunidad. A diferencia de las experiencias, aquí compartimos lo que queremos enseñar y explicar."
+        title="Pensar mejor también se entrena."
+        description="Guías, apuntes y reflexiones escritas para explicar lo aprendido, ordenar ideas y abrir nuevas preguntas."
         crumbs={[{ label: "Inicio", to: "/" }, { label: "Blog" }]}
       />
 
       <Section ariaLabel="Listado de artículos">
         {posts.length > 0 ? (
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="divide-y divide-border border-y border-border">
             {posts.map((post) => (
               <li key={post.slug}>
                 <ArticleCard post={post} />

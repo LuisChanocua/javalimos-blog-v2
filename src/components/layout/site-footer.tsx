@@ -5,16 +5,15 @@ import { Container } from "./container";
 
 export function SiteFooter() {
   return (
-    <footer className="border-border bg-surface/50 mt-8 border-t">
+    <footer className="border-border bg-accent text-accent-foreground border-t">
       <Container className="py-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <p className="font-display text-lg font-bold">
-              Java<span className="text-primary">Limo++</span>
+            <p className="font-display text-2xl font-bold">
+              JavaLimo++
             </p>
-            <p className="text-muted-foreground mt-3 max-w-sm text-sm leading-relaxed">
-              {siteConfig.description} Nacimos en {siteConfig.origin.place} y estamos abiertos a
-              quien quiera aprender y compartir.
+            <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-75">
+              {siteConfig.description} Aprendemos, resolvemos y compartimos conocimiento en comunidad.
             </p>
           </div>
 
@@ -26,7 +25,7 @@ export function SiteFooter() {
                   <li key={item.to}>
                     <Link
                       to={item.to}
-                      className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                    className="text-sm opacity-70 transition-opacity hover:opacity-100"
                     >
                       {item.label}
                     </Link>
@@ -37,7 +36,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <p className="text-muted-foreground border-border mt-10 border-t pt-6 text-xs">
+        <p className="mt-10 border-t border-accent-foreground/20 pt-6 text-xs opacity-65">
           © {new Date().getFullYear()} {siteConfig.name}. Comunidad de programación y tecnología.
         </p>
       </Container>

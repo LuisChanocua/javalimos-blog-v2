@@ -45,20 +45,22 @@ export function SiteHeader() {
           </Button>
         </nav>
 
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="icon"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="menu-movil"
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
-          className="border-border hover:bg-secondary inline-flex size-10 items-center justify-center rounded-md border lg:hidden"
+          className="lg:hidden"
         >
           {open ? (
             <X aria-hidden="true" className="size-5" />
           ) : (
             <Menu aria-hidden="true" className="size-5" />
           )}
-        </button>
+        </Button>
       </Container>
 
       <div
