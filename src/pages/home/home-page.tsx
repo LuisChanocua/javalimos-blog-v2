@@ -3,7 +3,7 @@ import { ArticleCard } from "@/components/cards/article-card";
 import { ExperienceCard } from "@/components/cards/experience-card";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { AlliesSection } from "@/components/sections/allies-section";
-import { AreasGrid } from "@/components/sections/areas-grid";
+import { AreasEditorial } from "@/components/sections/areas-editorial";
 import { CtaSection } from "@/components/sections/cta-section";
 import { Hero } from "@/components/sections/hero";
 import { UpcomingActivities } from "@/components/sections/upcoming-activities";
@@ -25,28 +25,34 @@ export function HomePage() {
       <Hero />
 
       <Section ariaLabelledby="quienes-somos" tone="muted">
-        <SectionHeader
-          id="quienes-somos"
-          eyebrow="Quiénes somos"
-          title="Una comunidad, no un club cerrado"
-          description="JavaLimo++ reúne a personas interesadas en programación, algoritmia y tecnología. Nació dentro de un entorno universitario, pero está abierta a estudiantes de cualquier institución, egresados, autodidactas, docentes y profesionales."
-        />
-        <Button asChild variant="outline" className="mt-6">
-          <Link to="/nosotros">Conoce nuestra historia y principios</Link>
-        </Button>
+        <div className="grid gap-10 md:grid-cols-[0.65fr_1.35fr] md:gap-16 lg:gap-24">
+          <p className="text-primary text-xs font-bold uppercase">{`{ esencia }`}</p>
+          <div>
+            <h2 id="quienes-somos" className="section-title">
+              La curiosidad nos reúne. El código nos pone en movimiento.
+            </h2>
+            <p className="text-muted-foreground lead-copy mt-7 max-w-3xl">
+              Practicamos algoritmia, compartimos lo que aprendemos y construimos espacios donde
+              preguntar, intentar y equivocarse también forman parte del proceso.
+            </p>
+            <Button asChild variant="link" className="mt-7 px-0 text-foreground">
+              <Link to="/nosotros">Conoce por qué existe JavaLimo++ →</Link>
+            </Button>
+          </div>
+        </div>
       </Section>
 
       <Section ariaLabelledby="lo-que-hacemos">
         <SectionHeader
           id="lo-que-hacemos"
           eyebrow="Lo que hacemos"
-          title="Cuatro áreas que nos mueven"
+          title="Aprender haciendo, compartir aprendiendo."
           description="Practicamos, enseñamos, participamos y conectamos personas alrededor de la tecnología."
         />
-        <div className="mt-8">
-          <AreasGrid items={areas} />
+        <div className="mt-12">
+          <AreasEditorial items={areas} />
         </div>
-        <Button asChild variant="outline" className="mt-6">
+        <Button asChild variant="link" className="mt-8 px-0 text-foreground">
           <Link to="/que-hacemos">Ver todas nuestras áreas de actividad</Link>
         </Button>
       </Section>
@@ -57,14 +63,14 @@ export function HomePage() {
         <SectionHeader
           id="experiencias-recientes"
           eyebrow="Experiencias"
-          title="Lo que hemos vivido"
-          description="Concursos, talleres, charlas y encuentros en los que ha participado la comunidad."
+          title="La memoria también se programa."
+          description="Concursos, talleres, charlas y encuentros que dejan ideas, aprendizajes y nuevas preguntas."
         />
         <div className="mt-8">
           {recentExperiences.length > 0 ? (
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {recentExperiences.map((experience) => (
-                <li key={experience.id}>
+            <ul className="grid gap-5 lg:grid-cols-2">
+              {recentExperiences.map((experience, index) => (
+                <li key={experience.id} className={index === 0 ? "lg:row-span-2" : undefined}>
                   <ExperienceCard experience={experience} />
                 </li>
               ))}
@@ -76,7 +82,7 @@ export function HomePage() {
             />
           )}
         </div>
-        <Button asChild variant="outline" className="mt-6">
+        <Button asChild variant="link" className="mt-7 px-0 text-foreground">
           <Link to="/experiencias">Ver todas las experiencias de la comunidad</Link>
         </Button>
       </Section>
@@ -85,12 +91,12 @@ export function HomePage() {
         <SectionHeader
           id="blog-reciente"
           eyebrow="Blog"
-          title="Lo que escribimos"
-          description="Guías, apuntes y reflexiones sobre programación, algoritmia y tecnología."
+          title="Ideas que merecen una segunda lectura."
+          description="Guías, apuntes y reflexiones para entender mejor la programación, la algoritmia y la tecnología."
         />
         <div className="mt-8">
           {recentPosts.length > 0 ? (
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="divide-y divide-border border-y border-border">
               {recentPosts.map((post) => (
                 <li key={post.slug}>
                   <ArticleCard post={post} />
@@ -104,7 +110,7 @@ export function HomePage() {
             />
           )}
         </div>
-        <Button asChild variant="outline" className="mt-6">
+        <Button asChild variant="link" className="mt-7 px-0 text-foreground">
           <Link to="/blog">Leer más artículos del blog</Link>
         </Button>
       </Section>
