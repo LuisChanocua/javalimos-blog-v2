@@ -16,8 +16,8 @@ export function CommunityPage() {
     <>
       <PageHeader
         eyebrow="Comunidad"
-        title="Forma parte de JavaLimo++"
-        description="No importa si estudias en el ITSH, en otra institución, si eres egresado, autodidacta o simplemente tienes interés en programación y tecnología. Existen distintas formas de acercarte y colaborar con la comunidad."
+        title="Hay más de una forma de construir comunidad."
+        description="Puedes venir a aprender, compartir una idea, acompañar a otras personas o proponer una colaboración."
         crumbs={[{ label: "Inicio", to: "/" }, { label: "Comunidad" }]}
       >
         <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed">{OPENNESS_NOTE}</p>
@@ -30,17 +30,18 @@ export function CommunityPage() {
           title="Formas de involucrarte"
           description="Elige la que mejor describa tu interés y escríbenos desde la página de contacto."
         />
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
-          {involvementOptions.map((option) => (
+        <ul className="mt-10 divide-y divide-border border-y border-border">
+          {involvementOptions.map((option, index) => (
             <li
               key={option.id}
               id={option.id}
-              className="border-border bg-card rounded-xl border p-5"
+              className="grid gap-4 py-7 sm:grid-cols-[4rem_1fr]"
             >
-              <h3 className="text-lg font-semibold">{option.title}</h3>
-              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+              <span className="text-primary text-xs font-bold">{String(index + 1).padStart(2, "0")}</span>
+              <div><h3 className="text-2xl font-semibold">{option.title}</h3>
+              <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
                 {option.description}
-              </p>
+              </p></div>
             </li>
           ))}
         </ul>

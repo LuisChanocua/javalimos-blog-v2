@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section } from "@/components/layout/section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Button } from "@/components/ui/button";
 import { experienceCategories, experiences } from "@/content/experiences";
 import { cn } from "@/lib/utils";
 import type { ExperienceCategory } from "@/types/content";
@@ -25,8 +26,8 @@ export function ExperiencesPage() {
     <>
       <PageHeader
         eyebrow="Experiencias"
-        title="Concursos, talleres y eventos que hemos vivido"
-        description="La memoria de la comunidad: lo que hemos hecho, dónde hemos estado y qué aprendimos en el camino."
+        title="Lo que vivimos también forma parte de lo que aprendemos."
+        description="Concursos, talleres y encuentros: una memoria abierta de los retos, las personas y las ideas que nos han movido."
         crumbs={[{ label: "Inicio", to: "/" }, { label: "Experiencias" }]}
       />
 
@@ -36,20 +37,21 @@ export function ExperiencesPage() {
             {[{ value: "todas" as const, label: "Todas" }, ...available].map((option) => {
               const active = filter === option.value;
               return (
-                <button
+                <Button
                   key={option.value}
                   type="button"
                   aria-pressed={active}
                   onClick={() => setFilter(option.value)}
+                  variant="outline"
+                  size="sm"
                   className={cn(
-                    "rounded-full border px-4 py-1.5 text-sm font-medium transition-colors",
                     active
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border text-muted-foreground hover:text-foreground hover:bg-secondary",
+                      ? "border-primary bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+                      : "text-muted-foreground",
                   )}
                 >
                   {option.label}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -57,9 +59,9 @@ export function ExperiencesPage() {
 
         <div className="mt-8">
           {visible.length > 0 ? (
-            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {visible.map((experience) => (
-                <li key={experience.id}>
+            <ul className="grid gap-5 lg:grid-cols-2">
+              {visible.map((experience, index) => (
+                <li key={experience.id} className={index === 0 ? "lg:row-span-2" : undefined}>
                   <ExperienceCard experience={experience} />
                 </li>
               ))}

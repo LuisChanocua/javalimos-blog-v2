@@ -23,18 +23,19 @@ export function AboutPage() {
     <>
       <PageHeader
         eyebrow="Nosotros"
-        title="Historia y comunidad de JavaLimo++"
-        description="Somos una comunidad de programación y tecnología. Esta es la manera en que nos entendemos y por qué existimos."
+        title="Existimos para que aprender tecnología no sea un camino solitario."
+        description="Nos reúne la curiosidad, el gusto por resolver problemas y la voluntad de compartir lo que sabemos."
         crumbs={[{ label: "Inicio", to: "/" }, { label: "Nosotros" }]}
       />
 
-      <Section ariaLabelledby="quienes-somos" size="narrow">
+      <Section ariaLabelledby="quienes-somos">
         <SectionHeader
           id="quienes-somos"
-          title="Quiénes somos"
-          description="JavaLimo++ es, antes que nada, una comunidad."
+          eyebrow="01 / Por qué"
+          title="Una comunidad antes que una institución."
+          description="JavaLimo++ existe para practicar, enseñar, preguntar y crecer con otras personas."
         />
-        <div className="text-muted-foreground mt-5 space-y-4 leading-relaxed">
+        <div className="text-muted-foreground mt-10 grid gap-6 text-lg leading-relaxed md:grid-cols-2 md:gap-14">
           <p>
             Reunimos a personas interesadas en aprender, compartir, competir y crear con tecnología.
             No importa la carrera que estudies, la institución a la que pertenezcas o tu nivel de
@@ -50,9 +51,10 @@ export function AboutPage() {
         </div>
       </Section>
 
-      <Section ariaLabelledby="historia" tone="muted" size="narrow">
-        <SectionHeader id="historia" title="Nuestra historia" />
-        <div className="text-muted-foreground mt-5 space-y-4 leading-relaxed">
+      <Section ariaLabelledby="historia" tone="muted">
+        <div className="grid gap-10 md:grid-cols-[.7fr_1.3fr] md:gap-20">
+        <SectionHeader id="historia" eyebrow="02 / Origen" title="Nuestra historia" />
+        <div className="text-muted-foreground space-y-5 text-lg leading-relaxed">
           <p>
             JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas durante su
             formación en el {siteConfig.origin.institution}, en {siteConfig.origin.place}.
@@ -63,8 +65,9 @@ export function AboutPage() {
             contextos.
           </p>
         </div>
+        </div>
         {/* Espacio preparado para una línea de tiempo histórica con datos reales. */}
-        <div className="mt-8">
+        <div className="mt-14">
           <EmptyState
             title="Línea de tiempo en construcción"
             description="Aquí documentaremos los momentos clave de la comunidad conforme confirmemos fechas y hechos verificables."
@@ -72,19 +75,20 @@ export function AboutPage() {
         </div>
       </Section>
 
-      <Section ariaLabelledby="por-que-existe" size="narrow">
+      <Section ariaLabelledby="por-que-existe">
         <SectionHeader
           id="por-que-existe"
           title="Por qué existe JavaLimo++"
           description="Más que una misión corporativa, estas son las razones por las que seguimos reuniéndonos."
         />
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-          {reasons.map((reason) => (
+        <ul className="mt-10 divide-y divide-border border-y border-border">
+          {reasons.map((reason, index) => (
             <li
               key={reason}
-              className="border-border bg-card text-muted-foreground rounded-xl border p-4 text-sm leading-relaxed"
+              className="grid gap-3 py-5 text-lg leading-relaxed sm:grid-cols-[3rem_1fr]"
             >
-              {reason}
+              <span className="text-primary text-xs font-bold">{String(index + 1).padStart(2, "0")}</span>
+              <span>{reason}</span>
             </li>
           ))}
         </ul>
@@ -92,11 +96,12 @@ export function AboutPage() {
 
       <Section ariaLabelledby="principios" tone="muted">
         <SectionHeader id="principios" title="Principios" />
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {principles.map((principle) => (
-            <li key={principle.title} className="border-border bg-card rounded-xl border p-5">
-              <h3 className="font-semibold">{principle.title}</h3>
-              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+        <ul className="mt-10 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {principles.map((principle, index) => (
+            <li key={principle.title} className="border-primary border-t-2 pt-5">
+              <p className="text-primary text-xs font-bold">{`[ ${String(index + 1).padStart(2, "0")} ]`}</p>
+              <h3 className="mt-5 text-xl font-semibold">{principle.title}</h3>
+              <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
                 {principle.description}
               </p>
             </li>

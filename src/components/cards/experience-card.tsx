@@ -1,13 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { CalendarDays, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { PhotoPlaceholder } from "@/components/media/photo-placeholder";
 import { categoryLabel } from "@/content/experiences";
 import { formatDate } from "@/lib/format";
 import type { Experience } from "@/types/content";
 
 export function ExperienceCard({ experience }: { experience: Experience }) {
   return (
-    <article className="group border-border bg-card hover:border-primary/50 relative flex flex-col overflow-hidden rounded-xl border transition-colors">
+    <article className="group border-border bg-card hover:border-primary/50 relative flex h-full flex-col overflow-hidden rounded-sm border transition-colors">
       {experience.coverImage ? (
         <img
           src={experience.coverImage.src}
@@ -18,7 +19,9 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
           decoding="async"
           className="aspect-video w-full object-cover"
         />
-      ) : null}
+      ) : (
+        <PhotoPlaceholder className="aspect-video min-h-0" />
+      )}
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex flex-wrap items-center gap-2">
@@ -26,7 +29,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
           {experience.demo ? <Badge variant="outline">Contenido de ejemplo</Badge> : null}
         </div>
 
-        <h3 className="mt-3 text-lg font-semibold">
+        <h3 className="mt-4 text-xl leading-tight font-semibold sm:text-2xl">
           <Link
             to="/experiencias/$slug"
             params={{ slug: experience.slug }}
