@@ -9,7 +9,13 @@ const icons = {
   rocket: Rocket,
 } as const;
 
-export function AreaCard({ area, showDetails = false }: { area: Area; showDetails?: boolean | undefined }) {
+export function AreaCard({
+  area,
+  showDetails = false,
+}: {
+  area: Area;
+  showDetails?: boolean | undefined;
+}) {
   const Icon = icons[area.icon];
 
   return (

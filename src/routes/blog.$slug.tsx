@@ -12,7 +12,10 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Artículo no disponible | JavaLimo++" }, { name: "robots", content: "noindex" }],
+        meta: [
+          { title: "Artículo no disponible | JavaLimo++" },
+          { name: "robots", content: "noindex" },
+        ],
       };
     }
     const { post } = loaderData;

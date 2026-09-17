@@ -4,13 +4,7 @@
  */
 
 export type ExperienceCategory =
-  | "concursos"
-  | "eventos"
-  | "talleres"
-  | "charlas"
-  | "visitas"
-  | "comunidad"
-  | "otros";
+  "concursos" | "eventos" | "talleres" | "charlas" | "visitas" | "comunidad" | "otros";
 
 export interface ImageAsset {
   /** URL o ruta pública de la imagen. */
@@ -69,9 +63,7 @@ export interface BlogPost {
 export type ActivityStatus = "programada" | "por-confirmar" | "finalizada";
 export type ActivityMode = "presencial" | "en-linea" | "hibrida";
 export type ParticipationType =
-  | "abierto-al-publico"
-  | "registro-requerido"
-  | "actividad-institucional";
+  "abierto-al-publico" | "registro-requerido" | "actividad-institucional";
 
 export interface Activity {
   id: string;

@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border" aria-labelledby="hero-titulo">
+    <section
+      className="relative overflow-hidden border-b border-border"
+      aria-labelledby="hero-titulo"
+    >
       <div aria-hidden="true" className="surface-grid pointer-events-none absolute inset-0" />
       <Container className="relative grid items-center gap-8 py-14 md:min-h-[42rem] md:grid-cols-[minmax(0,1.18fr)_minmax(18rem,.82fr)] lg:gap-20 lg:py-20">
         <div className="reveal-soft min-w-0">
@@ -15,8 +18,8 @@ export function Hero() {
             Programar se aprende mejor cuando no lo haces solo.
           </h1>
           <p className="text-muted-foreground lead-copy mt-8 max-w-3xl">
-            Somos una comunidad para aprender, compartir conocimiento, resolver problemas y crecer
-            a través de la tecnología.
+            Somos una comunidad para aprender, compartir conocimiento, resolver problemas y crecer a
+            través de la tecnología.
           </p>
 
           <div className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center">

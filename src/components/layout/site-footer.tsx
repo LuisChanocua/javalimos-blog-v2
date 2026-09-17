@@ -9,11 +9,10 @@ export function SiteFooter() {
       <Container className="py-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <p className="font-display text-2xl font-bold">
-              JavaLimo++
-            </p>
+            <p className="font-display text-2xl font-bold">JavaLimo++</p>
             <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-75">
-              {siteConfig.description} Aprendemos, resolvemos y compartimos conocimiento en comunidad.
+              {siteConfig.description} Aprendemos, resolvemos y compartimos conocimiento en
+              comunidad.
             </p>
           </div>
 
@@ -25,7 +24,7 @@ export function SiteFooter() {
                   <li key={item.to}>
                     <Link
                       to={item.to}
-                    className="text-sm opacity-70 transition-opacity hover:opacity-100"
+                      className="text-sm opacity-70 transition-opacity hover:opacity-100"
                     >
                       {item.label}
                     </Link>
