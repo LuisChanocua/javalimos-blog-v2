@@ -63,8 +63,7 @@ export const areas: Area[] = [
 export const projectsArea: Area = {
   id: "proyectos",
   title: "Proyectos y colaboración",
-  summary:
-    "Espacio preparado para futuras iniciativas desarrolladas por la comunidad.",
+  summary: "Espacio preparado para futuras iniciativas desarrolladas por la comunidad.",
   details: [
     "Proyectos abiertos propuestos por integrantes.",
     "Colaboraciones con otras comunidades u organizaciones.",

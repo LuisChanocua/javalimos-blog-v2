@@ -70,7 +70,10 @@ export function HomePage() {
           {recentExperiences.length > 0 ? (
             <ul className="grid gap-5 lg:grid-cols-2">
               {recentExperiences.map((experience, index) => (
-                <li key={experience.id} className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}>
+                <li
+                  key={experience.id}
+                  className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}
+                >
                   <ExperienceCard experience={experience} />
                 </li>
               ))}

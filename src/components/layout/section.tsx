@@ -59,14 +59,14 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={cn("max-w-4xl", align === "center" && "mx-auto text-center")}>
-      {eyebrow ? (
-        <p className="text-primary mb-5 text-xs font-bold uppercase">{eyebrow}</p>
-      ) : null}
+      {eyebrow ? <p className="text-primary mb-5 text-xs font-bold uppercase">{eyebrow}</p> : null}
       <Heading id={id} className="section-title">
         {title}
       </Heading>
       {description ? (
-        <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-relaxed sm:text-lg">{description}</p>
+        <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-relaxed sm:text-lg">
+          {description}
+        </p>
       ) : null}
     </div>
   );

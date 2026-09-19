@@ -20,7 +20,9 @@ export function PageHeader({ title, description, eyebrow, crumbs, children }: Pa
         {eyebrow ? (
           <p className="text-primary mb-5 text-xs font-bold uppercase">{eyebrow}</p>
         ) : null}
-        <h1 className="max-w-5xl text-[clamp(2.75rem,6vw,6rem)] leading-[1.02] font-semibold">{title}</h1>
+        <h1 className="max-w-5xl text-[clamp(2.75rem,6vw,6rem)] leading-[1.02] font-semibold">
+          {title}
+        </h1>
         {description ? (
           <p className="text-muted-foreground mt-6 max-w-2xl text-base leading-relaxed sm:text-xl">
             {description}

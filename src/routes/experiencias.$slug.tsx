@@ -12,7 +12,10 @@ export const Route = createFileRoute("/experiencias/$slug")({
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Experiencia no disponible | JavaLimo++" }, { name: "robots", content: "noindex" }],
+        meta: [
+          { title: "Experiencia no disponible | JavaLimo++" },
+          { name: "robots", content: "noindex" },
+        ],
       };
     }
     const { experience } = loaderData;
