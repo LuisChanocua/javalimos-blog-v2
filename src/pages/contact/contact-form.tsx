@@ -10,17 +10,20 @@ import {
   type ContactSubmissionErrors,
 } from "@/domains/contact/contact-submission";
 
+type SubmissionStatus = "idle" | "submitting" | "success" | "failed" | "unavailable";
+
 /**
- * Formulario de contacto con validación en cliente.
- * Todavía NO existe backend: el envío no se simula como exitoso.
+ * Formulario de contacto con validación en cliente y envío server-side temporal.
  */
 export function ContactForm() {
   const [errors, setErrors] = useState<ContactSubmissionErrors>({});
-  const [validated, setValidated] = useState(false);
+  const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const isSubmitting = status === "submitting";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const name = String(data.get("name") ?? "");
     const email = String(data.get("email") ?? "");
     const reason = String(data.get("reason") ?? "");
@@ -29,18 +32,31 @@ export function ContactForm() {
 
     if (!result.ok) {
       setErrors(result.errors);
-      setValidated(false);
+      setStatus("idle");
       return;
     }
 
+    setErrors({});
+    setStatus("submitting");
     const submissionResult = await contactGateway.submit(result.submission);
 
-    setErrors({});
-    setValidated(submissionResult.status === "unavailable");
+    if (submissionResult.status === "success") {
+      form.reset();
+      setStatus("success");
+      return;
+    }
+
+    if (submissionResult.status === "validation-error") {
+      setErrors(submissionResult.errors);
+      setStatus("idle");
+      return;
+    }
+
+    setStatus(submissionResult.status);
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate aria-busy={isSubmitting} className="space-y-5">
       <div>
         <Label htmlFor="name">Nombre</Label>
         <Input
@@ -123,13 +139,28 @@ export function ContactForm() {
         ) : null}
       </div>
 
-      <Button type="submit">Validar mensaje</Button>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Enviando..." : "Enviar mensaje"}
+      </Button>
 
       <p aria-live="polite" className="text-muted-foreground text-sm leading-relaxed">
-        {validated
-          ? "Los datos son correctos, pero el envío todavía no está conectado: este formulario aún no manda el mensaje a nadie. La integración de envío se implementará más adelante."
-          : "Este formulario todavía no envía mensajes. Por ahora solo valida los datos; la integración de envío se implementará más adelante."}
+        {getStatusMessage(status)}
       </p>
     </form>
   );
+}
+
+function getStatusMessage(status: SubmissionStatus): string {
+  switch (status) {
+    case "submitting":
+      return "Estamos enviando tu mensaje.";
+    case "success":
+      return "Mensaje enviado. Gracias por escribirnos; revisaremos tu mensaje y responderemos por correo.";
+    case "unavailable":
+      return "El envío no está disponible por ahora. Intenta más tarde.";
+    case "failed":
+      return "No pudimos enviar el mensaje. Intenta más tarde.";
+    case "idle":
+      return "Completa el formulario y enviaremos tu mensaje al equipo de JavaLimo++.";
+  }
 }

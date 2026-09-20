@@ -1,21 +1,24 @@
 import type { ContactSubmission, ContactSubmissionErrors } from "./contact-submission";
+import { submitContact } from "./submit-contact";
 
 export type ContactSubmissionResult =
   | { status: "success" }
   | { status: "validation-error"; errors: ContactSubmissionErrors }
-  | { status: "rate-limited" }
-  | { status: "server-error" }
-  | { status: "network-error" }
+  | { status: "failed" }
   | { status: "unavailable" };
 
 export interface ContactGateway {
   submit(submission: ContactSubmission): Promise<ContactSubmissionResult>;
 }
 
-export const unavailableContactGateway: ContactGateway = {
-  async submit() {
-    return { status: "unavailable" };
+export const serverContactGateway: ContactGateway = {
+  async submit(submission) {
+    try {
+      return await submitContact({ data: submission });
+    } catch {
+      return { status: "failed" };
+    }
   },
 };
 
-export const contactGateway: ContactGateway = unavailableContactGateway;
+export const contactGateway: ContactGateway = serverContactGateway;
