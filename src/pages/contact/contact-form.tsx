@@ -4,38 +4,39 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { contactReasons } from "@/content/site/community";
-
-interface Errors {
-  name?: string;
-  email?: string;
-  reason?: string;
-  message?: string;
-}
+import { contactGateway } from "@/domains/contact/contact-gateway";
+import {
+  validateContactSubmission,
+  type ContactSubmissionErrors,
+} from "@/domains/contact/contact-submission";
 
 /**
  * Formulario de contacto con validación en cliente.
  * Todavía NO existe backend: el envío no se simula como exitoso.
  */
 export function ContactForm() {
-  const [errors, setErrors] = useState<Errors>({});
+  const [errors, setErrors] = useState<ContactSubmissionErrors>({});
   const [validated, setValidated] = useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
+    const name = String(data.get("name") ?? "");
+    const email = String(data.get("email") ?? "");
     const reason = String(data.get("reason") ?? "");
-    const message = String(data.get("message") ?? "").trim();
+    const message = String(data.get("message") ?? "");
+    const result = validateContactSubmission({ name, email, reason, message });
 
-    const next: Errors = {};
-    if (name.length < 2) next.name = "Escribe tu nombre.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = "Escribe un correo válido.";
-    if (!reason) next.reason = "Elige un motivo de contacto.";
-    if (message.length < 10) next.message = "Cuéntanos un poco más (mínimo 10 caracteres).";
+    if (!result.ok) {
+      setErrors(result.errors);
+      setValidated(false);
+      return;
+    }
 
-    setErrors(next);
-    setValidated(Object.keys(next).length === 0);
+    const submissionResult = await contactGateway.submit(result.submission);
+
+    setErrors({});
+    setValidated(submissionResult.status === "unavailable");
   }
 
   return (

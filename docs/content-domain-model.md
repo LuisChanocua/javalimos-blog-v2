@@ -282,6 +282,11 @@ Observaciones:
 
 - El formulario no envía datos.
 - El futuro backend debe tratarlo como submission transaccional, no como contenido publicable.
+- La frontera preparada es `ContactGateway`, porque Contact es una operación de envío y no una colección de lectura.
+- El flujo futuro previsto es: Contact UI → `ContactGateway` → `ApiContactGateway` → `POST /api/v1/contact/` → Django.
+- El gateway actual es inerte y devuelve `unavailable`; no simula éxito ni confirma recepción.
+- La validación frontend sólo mejora la UX. Django deberá repetir validación de requeridos, formato email, longitud, límites y payload inesperado.
+- Seguridad futura: rate limiting, protección anti-spam, CORS/CSRF según arquitectura final, límites de longitud y logging sin exponer PII innecesariamente.
 
 ## 3. Modelo conceptual de Post
 
