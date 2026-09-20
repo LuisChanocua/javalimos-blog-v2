@@ -197,6 +197,10 @@ Observaciones:
 
 - `allies` e `inspirations` están vacíos.
 - Ambos usan el mismo tipo `Ally`.
+- La aplicación consume `allies` mediante `AlliesRepository`, con adapter local hacia `src/content/allies`.
+- `inspirations` permanece local por ahora porque representa comunidades de referencia, no aliados o colaboradores confirmados.
+- El subgrafo de aliados actual es: Home → `AlliesSection` → `AlliesRepository` → `localAlliesRepository` → `allies`.
+- El subgrafo de inspiraciones actual es: Nosotros → `AlliesSection` → `inspirations`.
 - No hay cuerpo editorial ni detalle individual.
 
 ### About / Nosotros
@@ -409,7 +413,10 @@ Decisiones:
 
 - Modelo administrable sencillo.
 - No requiere `ContentBlock`.
-- `kind` puede distinguir aliados e inspiraciones, o se pueden mantener dos listados filtrados desde la misma entidad. Esta decisión queda abierta hasta conocer necesidades de administración.
+- `Ally` representa colaboradores o aliados con relación real con JavaLimo++.
+- `Inspiration` representa comunidades o referencias admiradas sin implicar relación formal.
+- No se colapsan ambos dominios sólo porque hoy comparten el mismo tipo TypeScript.
+- `kind` puede distinguir aliados e inspiraciones, o se pueden mantener dos consultas separadas. Esta decisión queda abierta hasta conocer necesidades de administración.
 
 Validación futura sin cambio visual:
 

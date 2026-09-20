@@ -18,7 +18,7 @@ export function AlliesSection({
   eyebrow?: string | undefined;
   title: string;
   description?: string | undefined;
-  items: Ally[];
+  items: readonly Ally[];
   emptyDescription: string;
 }) {
   return (
