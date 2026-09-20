@@ -3,10 +3,16 @@ import { ActivityCard } from "@/components/cards/activity-card";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { upcomingActivities } from "@/content/site/activities";
+import type { Event, EventLabels } from "@/domains/events/events-repository";
 
 /** Sección reutilizable de próximas actividades; tolera lista vacía. */
-export function UpcomingActivities() {
+export function UpcomingActivities({
+  events,
+  labels,
+}: {
+  events: readonly Event[];
+  labels: EventLabels;
+}) {
   return (
     <Section ariaLabelledby="proximas-actividades">
       <SectionHeader
@@ -16,11 +22,11 @@ export function UpcomingActivities() {
         description="Concursos, talleres y encuentros que la comunidad tiene por delante."
       />
       <div className="mt-8">
-        {upcomingActivities.length > 0 ? (
+        {events.length > 0 ? (
           <ul className="grid gap-5 sm:grid-cols-2">
-            {upcomingActivities.map((activity) => (
-              <li key={activity.id}>
-                <ActivityCard activity={activity} />
+            {events.map((event) => (
+              <li key={event.id}>
+                <ActivityCard event={event} labels={labels} />
               </li>
             ))}
           </ul>

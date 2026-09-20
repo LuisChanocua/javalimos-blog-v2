@@ -164,6 +164,12 @@ Observaciones:
 - La UI ya contempla estado vacío sin inventar datos.
 - El modelo actual mezcla nombre `Activity` con la necesidad conceptual futura de `Event`.
 - `status` actual describe estado operativo visible, pero no debe confundirse con estado editorial `draft/published`.
+- La aplicación activa consume este contenido mediante `EventsRepository`, con adapter local hacia `src/content/site/activities.ts`.
+- La frontera de dominio exporta `Event = Activity` para normalizar el lenguaje futuro sin renombrar todavía el tipo histórico ni tocar datos.
+- El subgrafo actual es: rutas y páginas → `UpcomingActivities` → `ActivityCard` → `EventsRepository` → `localEventsRepository` → `upcomingActivities`.
+- No existe todavía ruta de detalle para eventos; crear `/eventos/$slug` queda pospuesto hasta tener contenido real y necesidad editorial.
+- La colección local representa eventos próximos ya filtrados. Cuando exista backend, conviene separar estado editorial (`draft`, `published`) de estado temporal derivado (`upcoming`, `ongoing`, `past`) y del estado visible actual (`programada`, `por-confirmar`, `finalizada`).
+- `date` es una fecha ISO sin hora y `dateLabel` es texto editorial. No hay comparaciones temporales automáticas ni timezone definido. Un backend deberá usar timestamps con zona horaria clara antes de ordenar, filtrar o derivar estados por tiempo.
 
 ### Allies
 

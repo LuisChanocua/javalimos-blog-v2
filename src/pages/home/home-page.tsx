@@ -13,16 +13,21 @@ import { allies } from "@/content/allies";
 import { areas } from "@/content/site/areas";
 import { getExperienceCategoryLabel } from "@/domains/experiences/experience-categories";
 import type { ExperienceCategoryOption } from "@/domains/experiences/experiences-repository";
+import type { Event, EventLabels } from "@/domains/events/events-repository";
 import type { BlogPost, Experience } from "@/types/content";
 
 export function HomePage({
   recentPosts,
   recentExperiences,
   experienceCategories,
+  upcomingEvents,
+  eventLabels,
 }: {
   recentPosts: readonly BlogPost[];
   recentExperiences: readonly Experience[];
   experienceCategories: readonly ExperienceCategoryOption[];
+  upcomingEvents: readonly Event[];
+  eventLabels: EventLabels;
 }) {
   return (
     <>
@@ -61,7 +66,7 @@ export function HomePage({
         </Button>
       </Section>
 
-      <UpcomingActivities />
+      <UpcomingActivities events={upcomingEvents} labels={eventLabels} />
 
       <Section ariaLabelledby="experiencias-recientes" tone="muted">
         <SectionHeader
