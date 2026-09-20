@@ -546,6 +546,22 @@ src/content/posts
 
 `PostsRepository` expone sólo las operaciones que la UI pública actual necesita: listar posts y buscar por slug. La implementación actual sigue siendo local. Un futuro `ApiPostsRepository` deberá implementar el mismo contrato sin cambiar las páginas visuales.
 
+## 12.2 Acceso a datos de Experiences
+
+El dominio Experiences usa la misma frontera, respetando que `date` representa la fecha de la experiencia, no una fecha editorial:
+
+```text
+Experiences UI
+  ↓
+ExperiencesRepository
+  ↓
+LocalExperiencesRepository
+  ↓
+src/content/experiences
+```
+
+`ExperiencesRepository` expone lectura de experiencias, búsqueda por slug y categorías/labels usados por filtros y cards. La implementación actual sigue siendo local. Un futuro `ApiExperiencesRepository` deberá implementar el mismo contrato sin cambiar la UI.
+
 ## 13. Duplicaciones e inconsistencias detectadas
 
 - `Post` no tiene `id`, mientras `Experience`, `Activity` y `Ally` sí.

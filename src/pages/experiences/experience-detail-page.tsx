@@ -5,20 +5,25 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { categoryLabel, experiences } from "@/content/experiences";
+import { getExperienceCategoryLabel } from "@/domains/experiences/experience-categories";
+import type { ExperienceCategoryOption } from "@/domains/experiences/experiences-repository";
 import { formatDate } from "@/lib/format";
 import type { Experience } from "@/types/content";
 
 /** Plantilla de detalle: tolera campos ausentes sin romper el diseño. */
-export function ExperienceDetailPage({ experience }: { experience: Experience }) {
-  const related = experiences
-    .filter((item) => item.slug !== experience.slug && item.category === experience.category)
-    .slice(0, 3);
-
+export function ExperienceDetailPage({
+  experience,
+  relatedExperiences,
+  categories,
+}: {
+  experience: Experience;
+  relatedExperiences: readonly Experience[];
+  categories: readonly ExperienceCategoryOption[];
+}) {
   return (
     <>
       <PageHeader
-        eyebrow={categoryLabel(experience.category)}
+        eyebrow={getExperienceCategoryLabel(categories, experience.category)}
         title={experience.title}
         description={experience.excerpt}
         crumbs={[
@@ -130,13 +135,16 @@ export function ExperienceDetailPage({ experience }: { experience: Experience })
         </Button>
       </Section>
 
-      {related.length > 0 ? (
+      {relatedExperiences.length > 0 ? (
         <Section tone="muted" ariaLabelledby="relacionadas">
           <SectionHeader id="relacionadas" title="Experiencias relacionadas" />
           <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {related.map((item) => (
+            {relatedExperiences.map((item) => (
               <li key={item.id}>
-                <ExperienceCard experience={item} />
+                <ExperienceCard
+                  experience={item}
+                  categoryLabel={getExperienceCategoryLabel(categories, item.category)}
+                />
               </li>
             ))}
           </ul>

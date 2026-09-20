@@ -10,15 +10,20 @@ import { UpcomingActivities } from "@/components/sections/upcoming-activities";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { allies } from "@/content/allies";
-import { experiences } from "@/content/experiences";
 import { areas } from "@/content/site/areas";
-import type { BlogPost } from "@/types/content";
+import { getExperienceCategoryLabel } from "@/domains/experiences/experience-categories";
+import type { ExperienceCategoryOption } from "@/domains/experiences/experiences-repository";
+import type { BlogPost, Experience } from "@/types/content";
 
-export function HomePage({ recentPosts }: { recentPosts: readonly BlogPost[] }) {
-  const recentExperiences = [...experiences]
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 3);
-
+export function HomePage({
+  recentPosts,
+  recentExperiences,
+  experienceCategories,
+}: {
+  recentPosts: readonly BlogPost[];
+  recentExperiences: readonly Experience[];
+  experienceCategories: readonly ExperienceCategoryOption[];
+}) {
   return (
     <>
       <Hero />
@@ -73,7 +78,13 @@ export function HomePage({ recentPosts }: { recentPosts: readonly BlogPost[] }) 
                   key={experience.id}
                   className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}
                 >
-                  <ExperienceCard experience={experience} />
+                  <ExperienceCard
+                    experience={experience}
+                    categoryLabel={getExperienceCategoryLabel(
+                      experienceCategories,
+                      experience.category,
+                    )}
+                  />
                 </li>
               ))}
             </ul>
