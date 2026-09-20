@@ -1,11 +1,22 @@
-// Captures the original Error out-of-band so server.ts can recover the stack
-// when h3 has already swallowed the throw into a generic 500 Response.
+/// <reference types="node" />
 
-let lastCapturedError: { error: unknown; at: number } | undefined;
+import { AsyncLocalStorage } from "node:async_hooks";
+
+// Captures the original Error out-of-band, scoped to the active SSR request, so
+// server.ts can recover the stack when h3 has already swallowed the throw into a
+// generic 500 Response.
+
+type ErrorCaptureContext = {
+  captured?: { error: unknown; at: number };
+};
+
+const requestErrorCapture = new AsyncLocalStorage<ErrorCaptureContext>();
 const TTL_MS = 5_000;
 
 function record(error: unknown) {
-  lastCapturedError = { error, at: Date.now() };
+  const context = requestErrorCapture.getStore();
+  if (!context) return;
+  context.captured = { error, at: Date.now() };
 }
 
 // h3's HTTPError serializes to {"status":500,"unhandled":true,"message":"HTTPError"} —
@@ -51,7 +62,7 @@ function isErrorLike(value: unknown): value is Error {
 
 // Wrap console.error so errors logged by any layer — including h3's internal
 // unhandled-error logging, which this file cannot hook directly — are both
-// recorded for consumeLastCapturedError and expanded before serialization.
+// recorded for consumeCapturedError and expanded before serialization.
 const originalConsoleError = console.error.bind(console);
 console.error = (...args: unknown[]) => {
   const expanded = args.map((arg) => {
@@ -69,13 +80,18 @@ if (typeof globalThis.addEventListener === "function") {
   );
 }
 
-export function consumeLastCapturedError(): unknown {
-  if (!lastCapturedError) return undefined;
-  if (Date.now() - lastCapturedError.at > TTL_MS) {
-    lastCapturedError = undefined;
+export function runWithErrorCapture<T>(callback: () => T): T {
+  return requestErrorCapture.run({}, callback);
+}
+
+export function consumeCapturedError(): unknown {
+  const context = requestErrorCapture.getStore();
+  if (!context?.captured) return undefined;
+  if (Date.now() - context.captured.at > TTL_MS) {
+    delete context.captured;
     return undefined;
   }
-  const { error } = lastCapturedError;
-  lastCapturedError = undefined;
+  const { error } = context.captured;
+  delete context.captured;
   return error;
 }
