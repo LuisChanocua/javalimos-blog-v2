@@ -1,13 +1,17 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { getPost } from "@/content/posts";
+import { postsRepository } from "@/domains/blog/posts-repository";
 import { PostPage } from "@/pages/blog/post-page";
 import { breadcrumbLd, jsonLd, pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
-  loader: ({ params }) => {
-    const post = getPost(params.slug);
+  loader: async ({ params }) => {
+    const post = await postsRepository.findBySlug(params.slug);
     if (!post) throw notFound();
-    return { post };
+    const posts = await postsRepository.list();
+    const relatedPosts = posts
+      .filter((item) => item.slug !== post.slug && item.category === post.category)
+      .slice(0, 3);
+    return { post, relatedPosts };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
@@ -51,6 +55,6 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function PostRoute() {
-  const { post } = Route.useLoaderData();
-  return <PostPage post={post} />;
+  const { post, relatedPosts } = Route.useLoaderData();
+  return <PostPage post={post} relatedPosts={relatedPosts} />;
 }

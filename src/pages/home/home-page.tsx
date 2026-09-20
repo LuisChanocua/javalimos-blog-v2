@@ -10,16 +10,25 @@ import { UpcomingActivities } from "@/components/sections/upcoming-activities";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { allies } from "@/content/allies";
-import { experiences } from "@/content/experiences";
-import { sortedPosts } from "@/content/posts";
 import { areas } from "@/content/site/areas";
+import { getExperienceCategoryLabel } from "@/domains/experiences/experience-categories";
+import type { ExperienceCategoryOption } from "@/domains/experiences/experiences-repository";
+import type { Event, EventLabels } from "@/domains/events/events-repository";
+import type { BlogPost, Experience } from "@/types/content";
 
-export function HomePage() {
-  const recentExperiences = [...experiences]
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 3);
-  const recentPosts = sortedPosts().slice(0, 3);
-
+export function HomePage({
+  recentPosts,
+  recentExperiences,
+  experienceCategories,
+  upcomingEvents,
+  eventLabels,
+}: {
+  recentPosts: readonly BlogPost[];
+  recentExperiences: readonly Experience[];
+  experienceCategories: readonly ExperienceCategoryOption[];
+  upcomingEvents: readonly Event[];
+  eventLabels: EventLabels;
+}) {
   return (
     <>
       <Hero />
@@ -57,7 +66,7 @@ export function HomePage() {
         </Button>
       </Section>
 
-      <UpcomingActivities />
+      <UpcomingActivities events={upcomingEvents} labels={eventLabels} />
 
       <Section ariaLabelledby="experiencias-recientes" tone="muted">
         <SectionHeader
@@ -74,7 +83,13 @@ export function HomePage() {
                   key={experience.id}
                   className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}
                 >
-                  <ExperienceCard experience={experience} />
+                  <ExperienceCard
+                    experience={experience}
+                    categoryLabel={getExperienceCategoryLabel(
+                      experienceCategories,
+                      experience.category,
+                    )}
+                  />
                 </li>
               ))}
             </ul>

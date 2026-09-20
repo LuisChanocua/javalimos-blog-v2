@@ -1,31 +1,30 @@
 import { CalendarDays, MapPin, Radio } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { modeLabels, participationLabels, statusLabels } from "@/content/site/activities";
+import type { Event, EventLabels } from "@/domains/events/events-repository";
 import { formatDate } from "@/lib/format";
-import type { Activity } from "@/types/content";
 
-export function ActivityCard({ activity }: { activity: Activity }) {
+export function ActivityCard({ event, labels }: { event: Event; labels: EventLabels }) {
   return (
     <article className="border-border bg-card rounded-xl border p-5">
       <div className="flex flex-wrap items-center gap-2">
-        <Badge>{participationLabels[activity.participation]}</Badge>
-        <Badge variant="secondary">{activity.type}</Badge>
-        <Badge variant="outline">{statusLabels[activity.status]}</Badge>
+        <Badge>{labels.participation[event.participation]}</Badge>
+        <Badge variant="secondary">{event.type}</Badge>
+        <Badge variant="outline">{labels.status[event.status]}</Badge>
       </div>
 
-      <h3 className="mt-3 text-lg font-semibold">{activity.name}</h3>
-      <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{activity.description}</p>
+      <h3 className="mt-3 text-lg font-semibold">{event.name}</h3>
+      <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{event.description}</p>
 
       <dl className="text-muted-foreground mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-        {activity.date || activity.dateLabel ? (
+        {event.date || event.dateLabel ? (
           <div className="flex items-center gap-1.5">
             <CalendarDays aria-hidden="true" className="size-3.5" />
             <dt className="sr-only">Fecha</dt>
             <dd>
-              {activity.date ? (
-                <time dateTime={activity.date}>{formatDate(activity.date)}</time>
+              {event.date ? (
+                <time dateTime={event.date}>{formatDate(event.date)}</time>
               ) : (
-                activity.dateLabel
+                event.dateLabel
               )}
             </dd>
           </div>
@@ -33,13 +32,13 @@ export function ActivityCard({ activity }: { activity: Activity }) {
         <div className="flex items-center gap-1.5">
           <Radio aria-hidden="true" className="size-3.5" />
           <dt className="sr-only">Modalidad</dt>
-          <dd>{modeLabels[activity.mode]}</dd>
+          <dd>{labels.mode[event.mode]}</dd>
         </div>
-        {activity.location ? (
+        {event.location ? (
           <div className="flex items-center gap-1.5">
             <MapPin aria-hidden="true" className="size-3.5" />
             <dt className="sr-only">Lugar</dt>
-            <dd>{activity.location}</dd>
+            <dd>{event.location}</dd>
           </div>
         ) : null}
       </dl>

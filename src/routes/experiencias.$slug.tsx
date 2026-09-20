@@ -1,13 +1,20 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { experiences } from "@/content/experiences";
+import { experiencesRepository } from "@/domains/experiences/experiences-repository";
 import { ExperienceDetailPage } from "@/pages/experiences/experience-detail-page";
 import { breadcrumbLd, jsonLd, pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/experiencias/$slug")({
-  loader: ({ params }) => {
-    const experience = experiences.find((item) => item.slug === params.slug);
+  loader: async ({ params }) => {
+    const experience = await experiencesRepository.findBySlug(params.slug);
     if (!experience) throw notFound();
-    return { experience };
+    const [experiences, categories] = await Promise.all([
+      experiencesRepository.list(),
+      experiencesRepository.listCategories(),
+    ]);
+    const relatedExperiences = experiences
+      .filter((item) => item.slug !== experience.slug && item.category === experience.category)
+      .slice(0, 3);
+    return { experience, relatedExperiences, categories };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
@@ -42,6 +49,12 @@ export const Route = createFileRoute("/experiencias/$slug")({
 });
 
 function ExperienceDetailRoute() {
-  const { experience } = Route.useLoaderData();
-  return <ExperienceDetailPage experience={experience} />;
+  const { experience, relatedExperiences, categories } = Route.useLoaderData();
+  return (
+    <ExperienceDetailPage
+      experience={experience}
+      relatedExperiences={relatedExperiences}
+      categories={categories}
+    />
+  );
 }

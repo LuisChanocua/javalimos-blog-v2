@@ -2,11 +2,16 @@ import { Link } from "@tanstack/react-router";
 import { CalendarDays, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PhotoPlaceholder } from "@/components/media/photo-placeholder";
-import { categoryLabel } from "@/content/experiences";
 import { formatDate } from "@/lib/format";
 import type { Experience } from "@/types/content";
 
-export function ExperienceCard({ experience }: { experience: Experience }) {
+export function ExperienceCard({
+  experience,
+  categoryLabel,
+}: {
+  experience: Experience;
+  categoryLabel: string;
+}) {
   return (
     <article className="group border-border bg-card hover:border-primary/50 relative flex h-full min-w-0 flex-col overflow-hidden rounded-sm border transition-colors">
       {experience.coverImage ? (
@@ -25,7 +30,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary">{categoryLabel(experience.category)}</Badge>
+          <Badge variant="secondary">{categoryLabel}</Badge>
           {experience.demo ? <Badge variant="outline">Contenido de ejemplo</Badge> : null}
         </div>
 
