@@ -11,14 +11,13 @@ import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { allies } from "@/content/allies";
 import { experiences } from "@/content/experiences";
-import { sortedPosts } from "@/content/posts";
 import { areas } from "@/content/site/areas";
+import type { BlogPost } from "@/types/content";
 
-export function HomePage() {
+export function HomePage({ recentPosts }: { recentPosts: readonly BlogPost[] }) {
   const recentExperiences = [...experiences]
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 3);
-  const recentPosts = sortedPosts().slice(0, 3);
 
   return (
     <>

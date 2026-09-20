@@ -530,6 +530,22 @@ Home debe permanecer como consumidor de contenido:
 
 No conviene crear copias independientes del mismo contenido sólo para Home. Si se necesita curaduría futura, debe hacerse con campos como `featured`, `sort_order` o relaciones explícitas, no duplicando registros.
 
+## 12.1 Acceso a datos de Blog
+
+El dominio Blog usa una frontera de lectura explícita:
+
+```text
+Blog routes/pages
+  ↓
+PostsRepository
+  ↓
+LocalPostsRepository
+  ↓
+src/content/posts
+```
+
+`PostsRepository` expone sólo las operaciones que la UI pública actual necesita: listar posts y buscar por slug. La implementación actual sigue siendo local. Un futuro `ApiPostsRepository` deberá implementar el mismo contrato sin cambiar las páginas visuales.
+
 ## 13. Duplicaciones e inconsistencias detectadas
 
 - `Post` no tiene `id`, mientras `Experience`, `Activity` y `Ally` sí.
