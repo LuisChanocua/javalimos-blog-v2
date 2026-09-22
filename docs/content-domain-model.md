@@ -559,12 +559,17 @@ Blog routes/pages
   ↓
 PostsRepository
   ↓
-LocalPostsRepository
+Content source binding
   ↓
-src/content/posts
+LocalPostsRepository | EmptyPostsRepository
 ```
 
-`PostsRepository` expone sólo las operaciones que la UI pública actual necesita: listar posts y buscar por slug. La implementación actual sigue siendo local. Un futuro `ApiPostsRepository` deberá implementar el mismo contrato sin cambiar las páginas visuales.
+`PostsRepository` expone sólo las operaciones que la UI pública actual necesita: listar posts y buscar por slug. La implementación se selecciona mediante `VITE_CONTENT_SOURCE`, centralizado en `src/config/content-source.ts`.
+
+- `local`: usa `src/content/posts` para desarrollo y revisión de contenido actual.
+- `empty`: devuelve listas vacías y `null` en detalle para pre-producción sin publicar contenido demo/local.
+
+Un futuro `api` no está implementado todavía. Sólo deberá aceptarse cuando exista un `ApiPostsRepository` real que implemente el mismo contrato sin cambiar las páginas visuales.
 
 ## 12.2 Acceso a datos de Experiences
 
@@ -575,12 +580,33 @@ Experiences UI
   ↓
 ExperiencesRepository
   ↓
-LocalExperiencesRepository
+Content source binding
   ↓
-src/content/experiences
+LocalExperiencesRepository | EmptyExperiencesRepository
 ```
 
-`ExperiencesRepository` expone lectura de experiencias, búsqueda por slug y categorías/labels usados por filtros y cards. La implementación actual sigue siendo local. Un futuro `ApiExperiencesRepository` deberá implementar el mismo contrato sin cambiar la UI.
+`ExperiencesRepository` expone lectura de experiencias, búsqueda por slug y categorías usados por filtros y cards. En `local` usa `src/content/experiences`; en `empty` no publica experiencias ni categorías. Un futuro `ApiExperiencesRepository` deberá implementar el mismo contrato sin cambiar la UI.
+
+## 12.3 Content source
+
+`VITE_CONTENT_SOURCE` controla la fuente de contenido publicable:
+
+- `local`: modo por defecto para desarrollo; conserva el contenido local actual.
+- `empty`: modo recomendado para una primera producción mientras Django/DRF no exista; no publica posts, experiencias, eventos próximos ni aliados locales.
+
+La variable no depende de `NODE_ENV`. Un build de producción debe declarar explícitamente el modo deseado, por ejemplo:
+
+```sh
+docker build --target runtime --build-arg VITE_CONTENT_SOURCE=empty .
+```
+
+En código de navegador, `VITE_CONTENT_SOURCE` es build-time porque Vite incorpora las variables `VITE_*` al bundle durante `vite build`. Cambiar la variable al arrancar un contenedor ya construido no reescribe el JavaScript público.
+
+En SSR Node, `src/config/content-source.ts` también puede leer `process.env.VITE_CONTENT_SOURCE` en runtime. Para evitar diferencias entre SSR y browser, el runtime Docker recibe el mismo valor de build arg usado al construir la imagen.
+
+En `empty`, `vite.config.ts` redirige los adapters locales hacia los adapters vacíos durante el build. Esto evita que el contenido demo/local de Blog y Experiences se publique como chunks públicos del navegador.
+
+No se acepta `VITE_CONTENT_SOURCE=api` todavía. Ese modo queda pospuesto hasta crear adapters API reales para posts, experiencias, eventos y aliados.
 
 ## 13. Duplicaciones e inconsistencias detectadas
 

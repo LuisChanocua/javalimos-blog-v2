@@ -21,15 +21,19 @@ COPY . .
 CMD ["bun", "run", "lint"]
 
 FROM quality AS build
+ARG VITE_CONTENT_SOURCE=local
 ENV NODE_ENV=production
 ENV SELF_HOSTED=true
+ENV VITE_CONTENT_SOURCE=${VITE_CONTENT_SOURCE}
 RUN bun run build
 
 FROM ${NODE_IMAGE} AS runtime
 WORKDIR /app
+ARG VITE_CONTENT_SOURCE=local
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=3000
+ENV VITE_CONTENT_SOURCE=${VITE_CONTENT_SOURCE}
 COPY --from=build --chown=node:node /app/.output ./.output
 USER node
 EXPOSE 3000
