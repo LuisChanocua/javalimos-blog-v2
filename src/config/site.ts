@@ -1,9 +1,30 @@
 /** Configuración central del sitio. Única fuente de verdad de la marca. */
+export const socialLinks = [
+  {
+    id: "instagram",
+    label: "Instagram",
+    url: "https://www.instagram.com/javalimocpp/",
+  },
+  {
+    id: "facebook",
+    label: "Facebook",
+    url: "https://www.facebook.com/javalimocpp",
+  },
+] as const;
+
+export const academicReferenceLinks = [
+  {
+    id: "itsh-omegaup",
+    label: "ITSH en omegaUp",
+    url: "https://omegaup.com/schools/profile/4062/",
+  },
+] as const;
+
 export const siteConfig = {
   name: "JavaLimo++",
-  tagline: "Comunidad de programación y tecnología",
+  tagline: "Comunidad de programación",
   description:
-    "JavaLimo++ es una comunidad de programación, algoritmia y tecnología: aprendemos, compartimos y crecemos juntos.",
+    "Comunidad de programación, aprendizaje y colaboración para practicar, compartir conocimiento y crecer con otras personas.",
   shareImage: "/share.webp",
   locale: "es-MX",
   origin: {
@@ -12,7 +33,7 @@ export const siteConfig = {
   },
   /** Correo de contacto. Reemplazar por el correo real de la comunidad. */
   email: "",
-  socials: [] as { id: string; label: string; url: string }[],
+  socials: socialLinks,
 } as const;
 
 export const OPENNESS_NOTE =

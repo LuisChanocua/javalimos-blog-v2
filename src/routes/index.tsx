@@ -32,9 +32,9 @@ export const Route = createFileRoute("/")({
   },
   head: () =>
     pageMeta({
-      title: "JavaLimo++ | Comunidad de programación y tecnología",
+      title: "JavaLimo++ | Comunidad de programación",
       description:
-        "Comunidad de programación, algoritmia y tecnología abierta a estudiantes, egresados, autodidactas y profesionales. Aprendemos, compartimos y crecemos juntos.",
+        "Comunidad de programación, aprendizaje y colaboración para practicar, compartir conocimiento y crecer con otras personas.",
       path: "/",
     }),
   component: HomeRoute,

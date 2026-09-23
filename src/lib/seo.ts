@@ -23,6 +23,7 @@ export function pageMeta({ title, description, path, type = "website", noindex }
     { property: "og:type", content: type },
     { property: "og:url", content: path },
     { property: "og:image", content: siteConfig.shareImage },
+    { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: siteConfig.shareImage },
@@ -55,4 +56,5 @@ export const organizationLd = {
   name: siteConfig.name,
   description: siteConfig.description,
   url: "/",
+  sameAs: siteConfig.socials.map((social) => social.url),
 };

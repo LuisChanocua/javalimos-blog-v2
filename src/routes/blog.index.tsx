@@ -10,9 +10,9 @@ export const Route = createFileRoute("/blog/")({
   },
   head: () => ({
     ...pageMeta({
-      title: "Blog | Programación, algoritmos y tecnología | JavaLimo++",
+      title: "Blog | JavaLimo++",
       description:
-        "Guías, apuntes y reflexiones sobre programación competitiva, algoritmos, herramientas y desarrollo, escritas por la comunidad JavaLimo++.",
+        "Ideas, guías y reflexiones de JavaLimo++ sobre programación, algoritmia, aprendizaje, tecnología y vida en comunidad.",
       path: "/blog",
     }),
     scripts: [

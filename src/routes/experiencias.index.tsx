@@ -13,9 +13,9 @@ export const Route = createFileRoute("/experiencias/")({
   },
   head: () => ({
     ...pageMeta({
-      title: "Experiencias | Concursos, talleres y eventos de JavaLimo++",
+      title: "Experiencias | JavaLimo++",
       description:
-        "La memoria de la comunidad: concursos de programación, talleres, charlas, visitas y encuentros en los que hemos participado.",
+        "Conoce las experiencias, actividades y aprendizajes que forman parte de la historia y la comunidad de JavaLimo++.",
       path: "/experiencias",
     }),
     scripts: [

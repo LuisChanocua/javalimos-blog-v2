@@ -14,8 +14,20 @@ export const allies: Ally[] = [
     },
   },
   {
+    id: "arqode",
+    name: "ArQode",
+    url: "https://arqode.mx",
+    description:
+      "Consultora enfocada en experiencias digitales que convierten d4t0s en re$ultado$ de negocio.",
+    logo: {
+      src: "/images/communities/allies/arqode.webp",
+      alt: "Logotipo de ArQode",
+    },
+  },
+  {
     id: "ceisic",
     name: "CEISIC",
+    url: "https://www.facebook.com/profile.php?id=61574826186377",
     description:
       "Capítulo Estudiantil de Ingeniería en Sistemas Computacionales y aliado de la comunidad JavaLimo++.",
     logo: {

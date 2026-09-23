@@ -10,7 +10,7 @@ export const posts: BlogPost[] = [
     slug: "como-empezar-en-programacion-competitiva",
     title: "Cómo empezar en programación competitiva",
     excerpt:
-      "Artículo de demostración: una ruta sencilla para dar los primeros pasos resolviendo problemas de algoritmia.",
+      "Una ruta sencilla para dar los primeros pasos resolviendo problemas de algoritmia.",
     publishedAt: "2026-03-02",
     author: { name: "Equipo JavaLimo++" },
     category: "Algoritmia",
@@ -39,11 +39,7 @@ export const posts: BlogPost[] = [
       {
         type: "quote",
         text: "No se trata de resolver rápido desde el primer día, sino de entender bien y mejorar de forma sostenida.",
-      },
-      {
-        type: "paragraph",
-        text: "Este es un artículo de demostración pensado para mostrar la plantilla del blog. Puede reemplazarse por contenido escrito por la comunidad.",
-      },
+      }
     ],
   },
 ];
