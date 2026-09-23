@@ -4,42 +4,59 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { contactReasons } from "@/content/site/community";
+import { contactGateway } from "@/domains/contact/contact-gateway";
+import {
+  validateContactSubmission,
+  type ContactSubmissionErrors,
+} from "@/domains/contact/contact-submission";
 
-interface Errors {
-  name?: string;
-  email?: string;
-  reason?: string;
-  message?: string;
-}
+type SubmissionStatus = "idle" | "submitting" | "success" | "failed" | "unavailable";
 
 /**
- * Formulario de contacto con validación en cliente.
- * Todavía NO existe backend: el envío no se simula como exitoso.
+ * Formulario de contacto con validación en cliente y envío server-side temporal.
  */
 export function ContactForm() {
-  const [errors, setErrors] = useState<Errors>({});
-  const [validated, setValidated] = useState(false);
+  const [errors, setErrors] = useState<ContactSubmissionErrors>({});
+  const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const isSubmitting = status === "submitting";
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") ?? "");
+    const email = String(data.get("email") ?? "");
     const reason = String(data.get("reason") ?? "");
-    const message = String(data.get("message") ?? "").trim();
+    const message = String(data.get("message") ?? "");
+    const result = validateContactSubmission({ name, email, reason, message });
 
-    const next: Errors = {};
-    if (name.length < 2) next.name = "Escribe tu nombre.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = "Escribe un correo válido.";
-    if (!reason) next.reason = "Elige un motivo de contacto.";
-    if (message.length < 10) next.message = "Cuéntanos un poco más (mínimo 10 caracteres).";
+    if (!result.ok) {
+      setErrors(result.errors);
+      setStatus("idle");
+      return;
+    }
 
-    setErrors(next);
-    setValidated(Object.keys(next).length === 0);
+    setErrors({});
+    setStatus("submitting");
+    const submissionResult = await contactGateway.submit(result.submission);
+
+    if (submissionResult.status === "success") {
+      form.reset();
+      setStatus("success");
+      return;
+    }
+
+    if (submissionResult.status === "validation-error") {
+      setErrors(submissionResult.errors);
+      setStatus("idle");
+      return;
+    }
+
+    setStatus(submissionResult.status);
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate aria-busy={isSubmitting} className="space-y-5">
       <div>
         <Label htmlFor="name">Nombre</Label>
         <Input
@@ -122,13 +139,28 @@ export function ContactForm() {
         ) : null}
       </div>
 
-      <Button type="submit">Validar mensaje</Button>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Enviando..." : "Enviar mensaje"}
+      </Button>
 
       <p aria-live="polite" className="text-muted-foreground text-sm leading-relaxed">
-        {validated
-          ? "Los datos son correctos, pero el envío todavía no está conectado: este formulario aún no manda el mensaje a nadie. La integración de envío se implementará más adelante."
-          : "Este formulario todavía no envía mensajes. Por ahora solo valida los datos; la integración de envío se implementará más adelante."}
+        {getStatusMessage(status)}
       </p>
     </form>
   );
+}
+
+function getStatusMessage(status: SubmissionStatus): string {
+  switch (status) {
+    case "submitting":
+      return "Estamos enviando tu mensaje.";
+    case "success":
+      return "Mensaje enviado. Gracias por escribirnos; revisaremos tu mensaje y responderemos por correo.";
+    case "unavailable":
+      return "El envío no está disponible por ahora. Intenta más tarde.";
+    case "failed":
+      return "No pudimos enviar el mensaje. Intenta más tarde.";
+    case "idle":
+      return "Completa el formulario y enviaremos tu mensaje al equipo de JavaLimo++.";
+  }
 }

@@ -5,9 +5,9 @@ import { breadcrumbLd, jsonLd, pageMeta } from "@/lib/seo";
 export const Route = createFileRoute("/nosotros")({
   head: () => ({
     ...pageMeta({
-      title: "Nosotros | Historia y comunidad JavaLimo++",
+      title: "Nosotros | JavaLimo++",
       description:
-        "Cómo nació JavaLimo++, por qué existe y los principios que sostienen a esta comunidad de programación y tecnología.",
+        "Conoce la historia, origen y principios de JavaLimo++, una comunidad para aprender tecnología y compartir conocimiento.",
       path: "/nosotros",
     }),
     scripts: [

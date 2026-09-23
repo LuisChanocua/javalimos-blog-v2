@@ -9,12 +9,11 @@ import { Hero } from "@/components/sections/hero";
 import { UpcomingActivities } from "@/components/sections/upcoming-activities";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { allies } from "@/content/allies";
 import { areas } from "@/content/site/areas";
 import { getExperienceCategoryLabel } from "@/domains/experiences/experience-categories";
 import type { ExperienceCategoryOption } from "@/domains/experiences/experiences-repository";
 import type { Event, EventLabels } from "@/domains/events/events-repository";
-import type { BlogPost, Experience } from "@/types/content";
+import type { Ally, BlogPost, Experience } from "@/types/content";
 
 export function HomePage({
   recentPosts,
@@ -22,12 +21,14 @@ export function HomePage({
   experienceCategories,
   upcomingEvents,
   eventLabels,
+  allies,
 }: {
   recentPosts: readonly BlogPost[];
   recentExperiences: readonly Experience[];
   experienceCategories: readonly ExperienceCategoryOption[];
   upcomingEvents: readonly Event[];
   eventLabels: EventLabels;
+  allies: readonly Ally[];
 }) {
   return (
     <>
@@ -95,7 +96,7 @@ export function HomePage({
             </ul>
           ) : (
             <EmptyState
-              title="Todavía no publicamos experiencias"
+              title="Aún no hay experiencias publicadas"
               description="Aquí aparecerán los concursos, talleres y eventos que la comunidad vaya documentando."
             />
           )}

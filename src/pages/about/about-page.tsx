@@ -4,7 +4,6 @@ import { Section, SectionHeader } from "@/components/layout/section";
 import { AlliesSection } from "@/components/sections/allies-section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/empty-state";
 import { inspirations } from "@/content/allies";
 import { principles } from "@/content/site/community";
 import { OPENNESS_NOTE, siteConfig } from "@/config/site";
@@ -56,8 +55,10 @@ export function AboutPage() {
           <SectionHeader id="historia" eyebrow="02 / Origen" title="Nuestra historia" />
           <div className="text-muted-foreground space-y-5 text-lg leading-relaxed">
             <p>
-              JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas durante su
-              formación en el {siteConfig.origin.institution}, en {siteConfig.origin.place}.
+              {
+                "JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas Computacionales durante su formación en el "
+              }
+              {siteConfig.origin.institution}, en {siteConfig.origin.place}.
             </p>
             <p>
               Ese origen forma parte de nuestra memoria, pero no define quién puede pertenecer a la
@@ -65,13 +66,6 @@ export function AboutPage() {
               contextos.
             </p>
           </div>
-        </div>
-        {/* Espacio preparado para una línea de tiempo histórica con datos reales. */}
-        <div className="mt-14">
-          <EmptyState
-            title="Línea de tiempo en construcción"
-            description="Aquí documentaremos los momentos clave de la comunidad conforme confirmemos fechas y hechos verificables."
-          />
         </div>
       </Section>
 
@@ -116,7 +110,7 @@ export function AboutPage() {
         title="Comunidades que nos inspiran"
         description="Clubes, organizaciones y comunidades cuyo trabajo ha influido en la forma en que hacemos las cosas."
         items={inspirations}
-        emptyDescription="Reservamos este espacio para reconocer a esas comunidades. Lo publicaremos cuando tengamos su información confirmada."
+        emptyDescription="Aquí aparecerán comunidades de referencia para JavaLimo++."
       />
 
       <Section ariaLabel="Enlaces relacionados" size="narrow">

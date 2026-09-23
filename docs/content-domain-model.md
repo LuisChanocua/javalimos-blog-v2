@@ -197,6 +197,10 @@ Observaciones:
 
 - `allies` e `inspirations` están vacíos.
 - Ambos usan el mismo tipo `Ally`.
+- La aplicación consume `allies` mediante `AlliesRepository`, con adapter local hacia `src/content/allies`.
+- `inspirations` permanece local por ahora porque representa comunidades de referencia, no aliados o colaboradores confirmados.
+- El subgrafo de aliados actual es: Home → `AlliesSection` → `AlliesRepository` → `localAlliesRepository` → `allies`.
+- El subgrafo de inspiraciones actual es: Nosotros → `AlliesSection` → `inspirations`.
 - No hay cuerpo editorial ni detalle individual.
 
 ### About / Nosotros
@@ -276,8 +280,15 @@ Contenido actual:
 
 Observaciones:
 
-- El formulario no envía datos.
+- El formulario envía datos mediante una server function temporal integrada con Resend.
 - El futuro backend debe tratarlo como submission transaccional, no como contenido publicable.
+- La frontera preparada es `ContactGateway`, porque Contact es una operación de envío y no una colección de lectura.
+- El flujo temporal actual es: Contact UI → `ContactGateway` → server function de TanStack Start → Resend.
+- El flujo futuro previsto es: Contact UI → `ContactGateway` → `ApiContactGateway` → `POST /api/v1/contact/` → Django.
+- La integración Resend es temporal; debe migrarse a Django/DRF cuando exista el backend.
+- La validación frontend sólo mejora la UX. Django deberá repetir validación de requeridos, formato email, longitud, límites y payload inesperado.
+- El sender de producción debe ser una dirección/dominio verificado en Resend. No se deben guardar API keys ni correos reales privados en Git.
+- Seguridad futura: rate limiting distribuido o edge, protección anti-spam, CORS/CSRF según arquitectura final, límites de longitud y logging sin exponer PII innecesariamente.
 
 ## 3. Modelo conceptual de Post
 
@@ -409,7 +420,10 @@ Decisiones:
 
 - Modelo administrable sencillo.
 - No requiere `ContentBlock`.
-- `kind` puede distinguir aliados e inspiraciones, o se pueden mantener dos listados filtrados desde la misma entidad. Esta decisión queda abierta hasta conocer necesidades de administración.
+- `Ally` representa colaboradores o aliados con relación real con JavaLimo++.
+- `Inspiration` representa comunidades o referencias admiradas sin implicar relación formal.
+- No se colapsan ambos dominios sólo porque hoy comparten el mismo tipo TypeScript.
+- `kind` puede distinguir aliados e inspiraciones, o se pueden mantener dos consultas separadas. Esta decisión queda abierta hasta conocer necesidades de administración.
 
 Validación futura sin cambio visual:
 
@@ -545,12 +559,17 @@ Blog routes/pages
   ↓
 PostsRepository
   ↓
-LocalPostsRepository
+Content source binding
   ↓
-src/content/posts
+LocalPostsRepository | EmptyPostsRepository
 ```
 
-`PostsRepository` expone sólo las operaciones que la UI pública actual necesita: listar posts y buscar por slug. La implementación actual sigue siendo local. Un futuro `ApiPostsRepository` deberá implementar el mismo contrato sin cambiar las páginas visuales.
+`PostsRepository` expone sólo las operaciones que la UI pública actual necesita: listar posts y buscar por slug. La implementación se selecciona mediante `VITE_CONTENT_SOURCE`, centralizado en `src/config/content-source.ts`.
+
+- `local`: usa `src/content/posts` para desarrollo y revisión de contenido actual.
+- `empty`: devuelve listas vacías y `null` en detalle para pre-producción sin publicar contenido demo/local.
+
+Un futuro `api` no está implementado todavía. Sólo deberá aceptarse cuando exista un `ApiPostsRepository` real que implemente el mismo contrato sin cambiar las páginas visuales.
 
 ## 12.2 Acceso a datos de Experiences
 
@@ -561,12 +580,35 @@ Experiences UI
   ↓
 ExperiencesRepository
   ↓
-LocalExperiencesRepository
+Content source binding
   ↓
-src/content/experiences
+LocalExperiencesRepository | EmptyExperiencesRepository
 ```
 
-`ExperiencesRepository` expone lectura de experiencias, búsqueda por slug y categorías/labels usados por filtros y cards. La implementación actual sigue siendo local. Un futuro `ApiExperiencesRepository` deberá implementar el mismo contrato sin cambiar la UI.
+`ExperiencesRepository` expone lectura de experiencias, búsqueda por slug y categorías usados por filtros y cards. En `local` usa `src/content/experiences`; en `empty` no publica experiencias ni categorías. Un futuro `ApiExperiencesRepository` deberá implementar el mismo contrato sin cambiar la UI.
+
+## 12.3 Content source
+
+`VITE_CONTENT_SOURCE` controla la fuente de contenido publicable:
+
+- `local`: modo por defecto para desarrollo; conserva el contenido local actual.
+- `empty`: modo recomendado para una primera producción mientras Django/DRF no exista; no publica posts, experiencias ni eventos próximos locales/demo.
+
+`Allies` e `inspirations` permanecen como contenido local real en `local` y `empty`. No dependen todavía de `VITE_CONTENT_SOURCE` porque ya contienen información productiva confirmada.
+
+La variable no depende de `NODE_ENV`. Un build de producción debe declarar explícitamente el modo deseado, por ejemplo:
+
+```sh
+docker build --target runtime --build-arg VITE_CONTENT_SOURCE=empty .
+```
+
+En código de navegador, `VITE_CONTENT_SOURCE` es build-time porque Vite incorpora las variables `VITE_*` al bundle durante `vite build`. Cambiar la variable al arrancar un contenedor ya construido no reescribe el JavaScript público.
+
+En SSR Node, `src/config/content-source.ts` también puede leer `process.env.VITE_CONTENT_SOURCE` en runtime. Para evitar diferencias entre SSR y browser, el runtime Docker recibe el mismo valor de build arg usado al construir la imagen.
+
+En `empty`, `vite.config.ts` redirige los adapters locales de Blog, Experiences y Events hacia los adapters vacíos durante el build. Esto evita que el contenido demo/local de Blog y Experiences se publique como chunks públicos del navegador.
+
+No se acepta `VITE_CONTENT_SOURCE=api` todavía. Ese modo queda pospuesto hasta crear adapters API reales para posts, experiencias y eventos.
 
 ## 13. Duplicaciones e inconsistencias detectadas
 

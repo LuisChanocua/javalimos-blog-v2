@@ -3,6 +3,8 @@ services:
     build:
       context: .
       target: dev
+    env_file:
+      - .env
     environment:
       HOST: 0.0.0.0
       PORT: 8080
@@ -36,6 +38,8 @@ services:
       target: runtime
     profiles:
       - prod
+    env_file:
+      - .env
     environment:
       NODE_ENV: production
       HOST: 0.0.0.0

@@ -184,6 +184,14 @@
   font-weight: 700;
 }
 
+.brand-mark--compact {
+  width: 2rem;
+}
+
+.brand-mark--compact .brand-mark__inner {
+  font-size: 0.875rem;
+}
+
 .photo-placeholder {
   display: flex;
   min-height: 17rem;
@@ -200,6 +208,15 @@
   font-size: 0.75rem;
 }
 
+.editorial-row__image {
+  display: block;
+  width: 100%;
+  min-height: 17rem;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--color-border);
+  object-fit: cover;
+}
+
 .editorial-list {
   border-top: 1px solid var(--color-border);
 }
@@ -207,7 +224,7 @@
 .editorial-row {
   display: grid;
   gap: 2rem;
-  padding-block: clamp(3rem, 7vw, 6.5rem);
+  padding-block: clamp(2.5rem, 5vw, 5rem);
   border-bottom: 1px solid var(--color-border);
 }
 

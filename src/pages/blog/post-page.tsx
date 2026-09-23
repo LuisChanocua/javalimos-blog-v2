@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { shouldShowDemoContent } from "@/config/content-source";
 import { formatDate, readingMinutes } from "@/lib/format";
 import type { BlogPost } from "@/types/content";
 
@@ -34,7 +35,7 @@ export function PostPage({
           <span aria-hidden="true"> · </span>
           {readingMinutes(post.body)} min de lectura
         </p>
-        {post.demo ? (
+        {shouldShowDemoContent && post.demo ? (
           <div className="mt-4">
             <Badge variant="outline">Contenido de ejemplo</Badge>
           </div>

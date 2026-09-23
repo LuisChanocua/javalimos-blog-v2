@@ -46,11 +46,6 @@ export function ExperienceDetailPage({
             </div>
           ) : null}
         </dl>
-        {experience.demo ? (
-          <div className="mt-4">
-            <Badge variant="outline">Contenido de ejemplo</Badge>
-          </div>
-        ) : null}
       </PageHeader>
 
       <Section size="narrow" ariaLabel="Detalle de la experiencia">

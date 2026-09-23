@@ -5,9 +5,9 @@ import { breadcrumbLd, jsonLd, pageMeta } from "@/lib/seo";
 export const Route = createFileRoute("/contacto")({
   head: () => ({
     ...pageMeta({
-      title: "Contacto | Escríbele a JavaLimo++",
+      title: "Contacto | JavaLimo++",
       description:
-        "Contacta a JavaLimo++ para participar en actividades, proponer un taller o charla, o colaborar como escuela, comunidad u organización.",
+        "Escríbele a JavaLimo++ para participar, colaborar o proponer actividades relacionadas con programación y tecnología.",
       path: "/contacto",
     }),
     scripts: [

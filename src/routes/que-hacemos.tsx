@@ -14,9 +14,9 @@ export const Route = createFileRoute("/que-hacemos")({
   },
   head: () => ({
     ...pageMeta({
-      title: "Lo que hacemos | Áreas de actividad de JavaLimo++",
+      title: "Lo que hacemos | JavaLimo++",
       description:
-        "Programación competitiva, talleres, eventos tecnológicos, proyectos y comunidad: las áreas permanentes de trabajo de JavaLimo++.",
+        "Practicamos programación competitiva, talleres, eventos tecnológicos y espacios de aprendizaje en comunidad.",
       path: "/que-hacemos",
     }),
     scripts: [
