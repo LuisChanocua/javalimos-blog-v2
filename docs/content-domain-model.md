@@ -280,7 +280,7 @@ Contenido actual:
 
 Observaciones:
 
-- El formulario no envía datos.
+- El formulario envía datos mediante una server function temporal integrada con Resend.
 - El futuro backend debe tratarlo como submission transaccional, no como contenido publicable.
 - La frontera preparada es `ContactGateway`, porque Contact es una operación de envío y no una colección de lectura.
 - El flujo temporal actual es: Contact UI → `ContactGateway` → server function de TanStack Start → Resend.
@@ -592,7 +592,9 @@ LocalExperiencesRepository | EmptyExperiencesRepository
 `VITE_CONTENT_SOURCE` controla la fuente de contenido publicable:
 
 - `local`: modo por defecto para desarrollo; conserva el contenido local actual.
-- `empty`: modo recomendado para una primera producción mientras Django/DRF no exista; no publica posts, experiencias, eventos próximos ni aliados locales.
+- `empty`: modo recomendado para una primera producción mientras Django/DRF no exista; no publica posts, experiencias ni eventos próximos locales/demo.
+
+`Allies` e `inspirations` permanecen como contenido local real en `local` y `empty`. No dependen todavía de `VITE_CONTENT_SOURCE` porque ya contienen información productiva confirmada.
 
 La variable no depende de `NODE_ENV`. Un build de producción debe declarar explícitamente el modo deseado, por ejemplo:
 
@@ -604,9 +606,9 @@ En código de navegador, `VITE_CONTENT_SOURCE` es build-time porque Vite incorpo
 
 En SSR Node, `src/config/content-source.ts` también puede leer `process.env.VITE_CONTENT_SOURCE` en runtime. Para evitar diferencias entre SSR y browser, el runtime Docker recibe el mismo valor de build arg usado al construir la imagen.
 
-En `empty`, `vite.config.ts` redirige los adapters locales hacia los adapters vacíos durante el build. Esto evita que el contenido demo/local de Blog y Experiences se publique como chunks públicos del navegador.
+En `empty`, `vite.config.ts` redirige los adapters locales de Blog, Experiences y Events hacia los adapters vacíos durante el build. Esto evita que el contenido demo/local de Blog y Experiences se publique como chunks públicos del navegador.
 
-No se acepta `VITE_CONTENT_SOURCE=api` todavía. Ese modo queda pospuesto hasta crear adapters API reales para posts, experiencias, eventos y aliados.
+No se acepta `VITE_CONTENT_SOURCE=api` todavía. Ese modo queda pospuesto hasta crear adapters API reales para posts, experiencias y eventos.
 
 ## 13. Duplicaciones e inconsistencias detectadas
 

@@ -36,7 +36,8 @@ export interface FaqItem {
 
 export const faqs: FaqItem[] = [
   {
-    question: "¿Necesito estudiar en el ITSH o Ingeniería en Sistemas para participar?",
+    question:
+      "¿Necesito estudiar en el ITSH o Ingeniería en Sistemas Computacionales para participar?",
     answer:
       "No. JavaLimo++ nació en ese contexto, pero busca construir una comunidad abierta a personas interesadas en programación y tecnología. Algunas actividades específicas pueden tener requisitos definidos por la institución u organizador correspondiente.",
   },

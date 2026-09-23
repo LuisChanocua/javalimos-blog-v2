@@ -28,7 +28,7 @@ JavaLimo++ es una comunidad enfocada en programación, algoritmia, tecnología, 
 
 
 
-La comunidad nació por iniciativa de estudiantes de Ingeniería en Sistemas durante su formación en el Instituto Tecnológico Superior de Huetamo (ITSH), en Huetamo, Michoacán, México.
+La comunidad nació por iniciativa de estudiantes de Ingeniería en Sistemas Computacionales durante su formación en el Instituto Tecnológico Superior de Huetamo (ITSH), en Huetamo, Michoacán, México.
 
 
 
@@ -40,7 +40,7 @@ Sin embargo, existe una regla fundamental de comunicación:
 
 
 
-El ITSH y la carrera de Ingeniería en Sistemas representan el origen de JavaLimo++, pero NO son requisitos para pertenecer, acercarse o colaborar con la comunidad.
+El ITSH y la carrera de Ingeniería en Sistemas Computacionales representan el origen de JavaLimo++, pero NO son requisitos para pertenecer, acercarse o colaborar con la comunidad.
 
 
 
@@ -52,7 +52,7 @@ Evitar presentar JavaLimo++ exclusivamente como:
 
 - “un club exclusivo para estudiantes del ITSH”;
 
-- “un club exclusivo de Ingeniería en Sistemas”;
+- “un club exclusivo de Ingeniería en Sistemas Computacionales”;
 
 - “un club únicamente universitario”.
 
@@ -766,7 +766,7 @@ Texto complementario:
 
 
 
-“JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas en el Instituto Tecnológico Superior de Huetamo y hoy busca conectar a personas interesadas en aprender, crear, competir y compartir conocimiento.”
+“JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas Computacionales en el Instituto Tecnológico Superior de Huetamo y hoy busca conectar a personas interesadas en aprender, crear, competir y compartir conocimiento.”
 
 
 
@@ -964,7 +964,7 @@ Una comunidad abierta a más personas
 
 
 
-“No necesitas estudiar Ingeniería en Sistemas ni pertenecer al ITSH para acercarte a JavaLimo++. Algunas actividades realizadas con instituciones pueden contar con requisitos particulares.”
+“No necesitas estudiar Ingeniería en Sistemas Computacionales ni pertenecer al ITSH para acercarte a JavaLimo++. Algunas actividades realizadas con instituciones pueden contar con requisitos particulares.”
 
 
 
@@ -1008,7 +1008,7 @@ Nuestra historia
 
 
 
-Explicar que nació durante la etapa universitaria de sus fundadores dentro de Ingeniería en Sistemas en el ITSH.
+Explicar que nació durante la etapa universitaria de sus fundadores dentro de Ingeniería en Sistemas Computacionales en el ITSH.
 
 
 
@@ -1432,7 +1432,7 @@ Una pregunta importante:
 
 
 
-¿Necesito estudiar en el ITSH o Ingeniería en Sistemas para participar?
+¿Necesito estudiar en el ITSH o Ingeniería en Sistemas Computacionales para participar?
 
 
 

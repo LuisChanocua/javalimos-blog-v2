@@ -23,6 +23,7 @@ export function ExperiencesPage({
 
   const sorted = [...experiences].sort((a, b) => b.date.localeCompare(a.date));
   const visible = filter === "todas" ? sorted : sorted.filter((e) => e.category === filter);
+  const hasExperiences = sorted.length > 0;
 
   // Solo se ofrecen filtros para categorías que realmente tienen contenido.
   const available = categories.filter((category) =>
@@ -81,8 +82,16 @@ export function ExperiencesPage({
             </ul>
           ) : (
             <EmptyState
-              title="Sin experiencias en esta categoría"
-              description="Prueba con otra categoría o vuelve más adelante: la comunidad documenta sus actividades conforme ocurren."
+              title={
+                hasExperiences
+                  ? "Sin experiencias en esta categoría"
+                  : "Aún no hay experiencias publicadas"
+              }
+              description={
+                hasExperiences
+                  ? "Prueba con otra categoría o vuelve más adelante: la comunidad documenta sus actividades conforme ocurren."
+                  : "Aquí aparecerán los concursos, talleres y eventos que la comunidad vaya documentando."
+              }
             />
           )}
         </div>

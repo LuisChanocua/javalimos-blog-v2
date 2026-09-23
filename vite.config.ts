@@ -9,6 +9,13 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 const selfHosted = process.env["SELF_HOSTED"] === "true";
 const contentSource = process.env["VITE_CONTENT_SOURCE"] ?? "local";
+
+if (contentSource !== "local" && contentSource !== "empty") {
+  throw new Error(
+    `Invalid VITE_CONTENT_SOURCE: "${contentSource}". Supported values: local, empty.`,
+  );
+}
+
 const useEmptyContentSource = contentSource === "empty";
 
 const emptyContentAliases = useEmptyContentSource
@@ -29,12 +36,6 @@ const emptyContentAliases = useEmptyContentSource
         find: "@/domains/events/local-events-repository",
         replacement: fileURLToPath(
           new URL("./src/domains/events/empty-events-repository.ts", import.meta.url),
-        ),
-      },
-      {
-        find: "@/domains/allies/local-allies-repository",
-        replacement: fileURLToPath(
-          new URL("./src/domains/allies/empty-allies-repository.ts", import.meta.url),
         ),
       },
     ]

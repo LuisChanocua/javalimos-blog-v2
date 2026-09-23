@@ -43,6 +43,8 @@ const contentSource = resolveContentSource(readRuntimeContentSource() ?? buildCo
 export const shouldUseEmptyContentSource =
   buildContentSourceValue === "empty" || contentSource === "empty";
 
+export const shouldShowDemoContent = buildContentSourceValue !== "empty";
+
 export function getContentSource(): ContentSource {
   return contentSource;
 }

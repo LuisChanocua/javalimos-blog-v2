@@ -2,7 +2,7 @@ import { Image } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function PhotoPlaceholder({
-  label = "Fotografía de la comunidad — pendiente",
+  label = "Actividad de la comunidad JavaLimo++",
   className,
 }: {
   label?: string | undefined;

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
+import { shouldShowDemoContent } from "@/config/content-source";
 import { formatDate, readingMinutes } from "@/lib/format";
 import type { BlogPost } from "@/types/content";
 
@@ -11,7 +12,9 @@ export function ArticleCard({ post }: { post: BlogPost }) {
       <div>
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{post.category}</Badge>
-          {post.demo ? <Badge variant="outline">Contenido de ejemplo</Badge> : null}
+          {shouldShowDemoContent && post.demo ? (
+            <Badge variant="outline">Contenido de ejemplo</Badge>
+          ) : null}
         </div>
 
         <h3 className="mt-4 text-[clamp(1.5rem,3vw,2.5rem)] leading-tight font-semibold">

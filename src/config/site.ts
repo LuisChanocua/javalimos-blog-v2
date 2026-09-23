@@ -4,6 +4,7 @@ export const siteConfig = {
   tagline: "Comunidad de programación y tecnología",
   description:
     "JavaLimo++ es una comunidad de programación, algoritmia y tecnología: aprendemos, compartimos y crecemos juntos.",
+  shareImage: "/share.webp",
   locale: "es-MX",
   origin: {
     institution: "Instituto Tecnológico Superior de Huetamo (ITSH)",

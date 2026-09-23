@@ -1,4 +1,6 @@
 /** Áreas permanentes de actividad de la comunidad. */
+import type { ImageAsset } from "@/types/content";
+
 export interface Area {
   id: string;
   title: string;
@@ -6,6 +8,7 @@ export interface Area {
   /** Detalle usado en la página "Lo que hacemos". */
   details?: string[];
   icon: "code" | "graduation" | "calendar" | "users" | "rocket";
+  image?: ImageAsset;
 }
 
 export const areas: Area[] = [
@@ -20,6 +23,10 @@ export const areas: Area[] = [
       "Simulacros y participación en concursos.",
     ],
     icon: "code",
+    image: {
+      src: "/images/areas/programacion-competitiva.webp",
+      alt: "Actividad de programación competitiva de JavaLimo++",
+    },
   },
   {
     id: "talleres",
@@ -32,6 +39,10 @@ export const areas: Area[] = [
       "Temas de tecnología propuestos por la comunidad.",
     ],
     icon: "graduation",
+    image: {
+      src: "/images/areas/talleres-y-aprendizaje.webp",
+      alt: "Taller de aprendizaje sobre programación y herramientas",
+    },
   },
   {
     id: "eventos",
@@ -44,6 +55,10 @@ export const areas: Area[] = [
       "Visitas y actividades relacionadas con tecnología.",
     ],
     icon: "calendar",
+    image: {
+      src: "/images/areas/eventos-tecnologicos.webp",
+      alt: "Entrada de un evento tecnológico con asistentes",
+    },
   },
   {
     id: "comunidad",
@@ -56,6 +71,10 @@ export const areas: Area[] = [
       "Vínculos con otras comunidades.",
     ],
     icon: "users",
+    image: {
+      src: "/images/areas/comunidad.webp",
+      alt: "Actividad de comunidad de JavaLimo++",
+    },
   },
 ];
 

@@ -96,7 +96,7 @@ export function HomePage({
             </ul>
           ) : (
             <EmptyState
-              title="Todavía no publicamos experiencias"
+              title="Aún no hay experiencias publicadas"
               description="Aquí aparecerán los concursos, talleres y eventos que la comunidad vaya documentando."
             />
           )}

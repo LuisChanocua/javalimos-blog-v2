@@ -15,7 +15,7 @@ export function PageHeader({ title, description, eyebrow, crumbs, children }: Pa
   return (
     <header className="border-border bg-surface relative overflow-hidden border-b">
       <div aria-hidden="true" className="surface-grid pointer-events-none absolute inset-0" />
-      <Container className="relative py-12 sm:py-20 lg:py-24">
+      <Container className="relative py-10 sm:py-16 lg:py-20">
         {crumbs ? <Breadcrumbs items={crumbs} className="mb-6" /> : null}
         {eyebrow ? (
           <p className="text-primary mb-5 text-xs font-bold uppercase">{eyebrow}</p>

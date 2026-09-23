@@ -22,8 +22,10 @@ export function pageMeta({ title, description, path, type = "website", noindex }
     { property: "og:description", content: description },
     { property: "og:type", content: type },
     { property: "og:url", content: path },
+    { property: "og:image", content: siteConfig.shareImage },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
+    { name: "twitter:image", content: siteConfig.shareImage },
   ];
   if (noindex) meta.push({ name: "robots", content: "noindex" });
 

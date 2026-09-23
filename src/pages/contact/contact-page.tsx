@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeader } from "@/components/layout/section";
-import { EmptyState } from "@/components/ui/empty-state";
 import { siteConfig } from "@/config/site";
 import { ContactForm } from "./contact-form";
 
@@ -17,10 +16,10 @@ export function ContactPage() {
         crumbs={[{ label: "Inicio", to: "/" }, { label: "Contacto" }]}
       />
 
-      <Section ariaLabelledby="canales" size="narrow">
-        <SectionHeader id="canales" title="Canales de contacto" />
-        <div className="mt-6">
-          {hasChannels ? (
+      {hasChannels ? (
+        <Section ariaLabelledby="canales" size="narrow">
+          <SectionHeader id="canales" title="Canales de contacto" />
+          <div className="mt-6">
             <ul className="space-y-3">
               {siteConfig.email ? (
                 <li>
@@ -45,14 +44,9 @@ export function ContactPage() {
                 </li>
               ))}
             </ul>
-          ) : (
-            <EmptyState
-              title="Faltan los datos de contacto reales"
-              description="Cuando nos compartas el correo y las redes sociales oficiales de JavaLimo++ los publicaremos aquí. Mientras tanto, el formulario de abajo ya está listo."
-            />
-          )}
-        </div>
-      </Section>
+          </div>
+        </Section>
+      ) : null}
 
       <Section ariaLabelledby="formulario" tone="muted" size="narrow">
         <SectionHeader
