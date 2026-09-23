@@ -5,15 +5,17 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { posts } from "@/content/posts";
+import { shouldShowDemoContent } from "@/config/content-source";
 import { formatDate, readingMinutes } from "@/lib/format";
 import type { BlogPost } from "@/types/content";
 
-export function PostPage({ post }: { post: BlogPost }) {
-  const related = posts
-    .filter((item) => item.slug !== post.slug && item.category === post.category)
-    .slice(0, 3);
-
+export function PostPage({
+  post,
+  relatedPosts,
+}: {
+  post: BlogPost;
+  relatedPosts: readonly BlogPost[];
+}) {
   return (
     <>
       <PageHeader
@@ -33,7 +35,7 @@ export function PostPage({ post }: { post: BlogPost }) {
           <span aria-hidden="true"> · </span>
           {readingMinutes(post.body)} min de lectura
         </p>
-        {post.demo ? (
+        {shouldShowDemoContent && post.demo ? (
           <div className="mt-4">
             <Badge variant="outline">Contenido de ejemplo</Badge>
           </div>
@@ -69,11 +71,11 @@ export function PostPage({ post }: { post: BlogPost }) {
         </Button>
       </Section>
 
-      {related.length > 0 ? (
+      {relatedPosts.length > 0 ? (
         <Section tone="muted" ariaLabelledby="articulos-relacionados">
           <SectionHeader id="articulos-relacionados" title="Artículos relacionados" />
           <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {related.map((item) => (
+            {relatedPosts.map((item) => (
               <li key={item.slug}>
                 <ArticleCard post={item} />
               </li>

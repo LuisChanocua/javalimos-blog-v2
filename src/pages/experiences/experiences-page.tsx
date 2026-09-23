@@ -5,20 +5,28 @@ import { Section } from "@/components/layout/section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Button } from "@/components/ui/button";
-import { experienceCategories, experiences } from "@/content/experiences";
+import { getExperienceCategoryLabel } from "@/domains/experiences/experience-categories";
+import type { ExperienceCategoryOption } from "@/domains/experiences/experiences-repository";
 import { cn } from "@/lib/utils";
-import type { ExperienceCategory } from "@/types/content";
+import type { Experience, ExperienceCategory } from "@/types/content";
 
 type Filter = ExperienceCategory | "todas";
 
-export function ExperiencesPage() {
+export function ExperiencesPage({
+  experiences,
+  categories,
+}: {
+  experiences: readonly Experience[];
+  categories: readonly ExperienceCategoryOption[];
+}) {
   const [filter, setFilter] = useState<Filter>("todas");
 
   const sorted = [...experiences].sort((a, b) => b.date.localeCompare(a.date));
   const visible = filter === "todas" ? sorted : sorted.filter((e) => e.category === filter);
+  const hasExperiences = sorted.length > 0;
 
   // Solo se ofrecen filtros para categorías que realmente tienen contenido.
-  const available = experienceCategories.filter((category) =>
+  const available = categories.filter((category) =>
     experiences.some((experience) => experience.category === category.value),
   );
 
@@ -61,15 +69,29 @@ export function ExperiencesPage() {
           {visible.length > 0 ? (
             <ul className="grid gap-5 lg:grid-cols-2">
               {visible.map((experience, index) => (
-                <li key={experience.id} className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}>
-                  <ExperienceCard experience={experience} />
+                <li
+                  key={experience.id}
+                  className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}
+                >
+                  <ExperienceCard
+                    experience={experience}
+                    categoryLabel={getExperienceCategoryLabel(categories, experience.category)}
+                  />
                 </li>
               ))}
             </ul>
           ) : (
             <EmptyState
-              title="Sin experiencias en esta categoría"
-              description="Prueba con otra categoría o vuelve más adelante: la comunidad documenta sus actividades conforme ocurren."
+              title={
+                hasExperiences
+                  ? "Sin experiencias en esta categoría"
+                  : "Aún no hay experiencias publicadas"
+              }
+              description={
+                hasExperiences
+                  ? "Prueba con otra categoría o vuelve más adelante: la comunidad documenta sus actividades conforme ocurren."
+                  : "Aquí aparecerán los concursos, talleres y eventos que la comunidad vaya documentando."
+              }
             />
           )}
         </div>

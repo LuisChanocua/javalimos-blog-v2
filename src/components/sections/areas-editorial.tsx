@@ -24,7 +24,19 @@ export function AreasEditorial({
         return (
           <li key={area.id} className="editorial-row">
             <div className="editorial-row__media">
-              <PhotoPlaceholder label={`Fotografía para ${area.title} — pendiente`} />
+              {area.image ? (
+                <img
+                  src={area.image.src}
+                  alt={area.image.alt}
+                  width={area.image.width ?? 960}
+                  height={area.image.height ?? 720}
+                  loading="lazy"
+                  decoding="async"
+                  className="editorial-row__image"
+                />
+              ) : (
+                <PhotoPlaceholder />
+              )}
             </div>
             <div className="editorial-row__content">
               <div className="editorial-row__meta">

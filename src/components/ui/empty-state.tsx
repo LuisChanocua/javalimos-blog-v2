@@ -13,9 +13,7 @@ export function EmptyState({
   return (
     <div className="border-border border-y py-9">
       <p className="font-display text-xl font-semibold">{title}</p>
-      <p className="text-muted-foreground mt-3 max-w-xl text-sm leading-relaxed">
-        {description}
-      </p>
+      <p className="text-muted-foreground mt-3 max-w-xl text-sm leading-relaxed">{description}</p>
       {action ? <div className="mt-6">{action}</div> : null}
     </div>
   );

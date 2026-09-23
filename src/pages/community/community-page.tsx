@@ -32,16 +32,16 @@ export function CommunityPage() {
         />
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {involvementOptions.map((option, index) => (
-            <li
-              key={option.id}
-              id={option.id}
-              className="grid gap-4 py-7 sm:grid-cols-[4rem_1fr]"
-            >
-              <span className="text-primary text-xs font-bold">{String(index + 1).padStart(2, "0")}</span>
-              <div><h3 className="text-2xl font-semibold">{option.title}</h3>
-              <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
-                {option.description}
-              </p></div>
+            <li key={option.id} id={option.id} className="grid gap-4 py-7 sm:grid-cols-[4rem_1fr]">
+              <span className="text-primary text-xs font-bold">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 className="text-2xl font-semibold">{option.title}</h3>
+                <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+                  {option.description}
+                </p>
+              </div>
             </li>
           ))}
         </ul>

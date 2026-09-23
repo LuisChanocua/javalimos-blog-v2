@@ -10,7 +10,13 @@ export interface Crumb {
   to?: AppRoute | undefined;
 }
 
-export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: string | undefined }) {
+export function Breadcrumbs({
+  items,
+  className,
+}: {
+  items: Crumb[];
+  className?: string | undefined;
+}) {
   return (
     <nav aria-label="Ruta de navegación" className={cn("text-muted-foreground text-sm", className)}>
       <ol className="flex flex-wrap items-center gap-1.5">

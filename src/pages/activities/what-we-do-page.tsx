@@ -5,9 +5,16 @@ import { AreasEditorial } from "@/components/sections/areas-editorial";
 import { CtaSection } from "@/components/sections/cta-section";
 import { UpcomingActivities } from "@/components/sections/upcoming-activities";
 import { Button } from "@/components/ui/button";
-import { areas, projectsArea } from "@/content/site/areas";
+import { areas } from "@/content/site/areas";
+import type { Event, EventLabels } from "@/domains/events/events-repository";
 
-export function WhatWeDoPage() {
+export function WhatWeDoPage({
+  upcomingEvents,
+  eventLabels,
+}: {
+  upcomingEvents: readonly Event[];
+  eventLabels: EventLabels;
+}) {
   return (
     <>
       <PageHeader
@@ -20,11 +27,11 @@ export function WhatWeDoPage() {
       <Section ariaLabelledby="areas">
         <SectionHeader id="areas" title="Nuestras áreas" />
         <div className="mt-10">
-          <AreasEditorial items={[...areas, projectsArea]} showDetails />
+          <AreasEditorial items={areas} showDetails />
         </div>
       </Section>
 
-      <UpcomingActivities />
+      <UpcomingActivities events={upcomingEvents} labels={eventLabels} />
 
       <Section ariaLabel="Contenido relacionado" tone="muted" size="narrow">
         <p className="text-muted-foreground leading-relaxed">

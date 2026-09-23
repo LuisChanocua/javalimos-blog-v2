@@ -9,17 +9,27 @@ import { Hero } from "@/components/sections/hero";
 import { UpcomingActivities } from "@/components/sections/upcoming-activities";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
-import { allies } from "@/content/allies";
-import { experiences } from "@/content/experiences";
-import { sortedPosts } from "@/content/posts";
 import { areas } from "@/content/site/areas";
+import { getExperienceCategoryLabel } from "@/domains/experiences/experience-categories";
+import type { ExperienceCategoryOption } from "@/domains/experiences/experiences-repository";
+import type { Event, EventLabels } from "@/domains/events/events-repository";
+import type { Ally, BlogPost, Experience } from "@/types/content";
 
-export function HomePage() {
-  const recentExperiences = [...experiences]
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 3);
-  const recentPosts = sortedPosts().slice(0, 3);
-
+export function HomePage({
+  recentPosts,
+  recentExperiences,
+  experienceCategories,
+  upcomingEvents,
+  eventLabels,
+  allies,
+}: {
+  recentPosts: readonly BlogPost[];
+  recentExperiences: readonly Experience[];
+  experienceCategories: readonly ExperienceCategoryOption[];
+  upcomingEvents: readonly Event[];
+  eventLabels: EventLabels;
+  allies: readonly Ally[];
+}) {
   return (
     <>
       <Hero />
@@ -57,7 +67,7 @@ export function HomePage() {
         </Button>
       </Section>
 
-      <UpcomingActivities />
+      <UpcomingActivities events={upcomingEvents} labels={eventLabels} />
 
       <Section ariaLabelledby="experiencias-recientes" tone="muted">
         <SectionHeader
@@ -70,14 +80,23 @@ export function HomePage() {
           {recentExperiences.length > 0 ? (
             <ul className="grid gap-5 lg:grid-cols-2">
               {recentExperiences.map((experience, index) => (
-                <li key={experience.id} className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}>
-                  <ExperienceCard experience={experience} />
+                <li
+                  key={experience.id}
+                  className={index === 0 ? "min-w-0 lg:row-span-2" : "min-w-0"}
+                >
+                  <ExperienceCard
+                    experience={experience}
+                    categoryLabel={getExperienceCategoryLabel(
+                      experienceCategories,
+                      experience.category,
+                    )}
+                  />
                 </li>
               ))}
             </ul>
           ) : (
             <EmptyState
-              title="Todavía no publicamos experiencias"
+              title="Aún no hay experiencias publicadas"
               description="Aquí aparecerán los concursos, talleres y eventos que la comunidad vaya documentando."
             />
           )}

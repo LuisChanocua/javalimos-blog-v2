@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build quality image
+        run: docker build --target quality -t javalimos-blog-v2:quality .
+
+      - name: Lint
+        run: docker run --rm -e SELF_HOSTED=true javalimos-blog-v2:quality bun run lint
+
+      - name: Typecheck
+        run: docker run --rm -e SELF_HOSTED=true javalimos-blog-v2:quality bun run typecheck
+
+      - name: Format check
+        run: docker run --rm -e SELF_HOSTED=true javalimos-blog-v2:quality bun run format:check
+
+      - name: Build
+        run: docker run --rm -e SELF_HOSTED=true javalimos-blog-v2:quality bun run build
+
+  production-image:
+    name: Production Image
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: quality
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build runtime image
+        run: docker build --target runtime -t javalimos-blog-v2:runtime .

@@ -16,7 +16,7 @@ export const mainNav: NavItem[] = [
   { label: "Comunidad", to: "/comunidad" },
 ];
 
-export const primaryCta = { label: "Participa", to: "/comunidad" };
+export const primaryCta = { label: "Participa", to: "/contacto" };
 
 export const footerNav: { title: string; items: NavItem[] }[] = [
   {

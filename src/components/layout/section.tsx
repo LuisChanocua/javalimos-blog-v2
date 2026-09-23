@@ -10,10 +10,17 @@ interface SectionProps {
   ariaLabel?: string | undefined;
   ariaLabelledby?: string | undefined;
   size?: "default" | "narrow" | undefined;
+  spacing?: "compact" | "normal" | "spacious" | undefined;
   tone?: "default" | "muted" | undefined;
 }
 
-/** Bloque vertical estándar: ritmo de espaciado único para todas las páginas. */
+const sectionSpacing = {
+  compact: "py-10 sm:py-12 lg:py-16",
+  normal: "py-12 sm:py-16 lg:py-20",
+  spacious: "py-14 sm:py-20 lg:py-24",
+} as const;
+
+/** Bloque vertical estándar: ritmo editorial compartido para todas las páginas. */
 export function Section({
   children,
   className,
@@ -21,6 +28,7 @@ export function Section({
   ariaLabel,
   ariaLabelledby,
   size,
+  spacing = "normal",
   tone = "default",
 }: SectionProps) {
   return (
@@ -29,7 +37,7 @@ export function Section({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledby}
       className={cn(
-        "py-16 sm:py-24 lg:py-32",
+        sectionSpacing[spacing],
         tone === "muted" && "bg-surface border-y border-border",
         className,
       )}
@@ -59,14 +67,14 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={cn("max-w-4xl", align === "center" && "mx-auto text-center")}>
-      {eyebrow ? (
-        <p className="text-primary mb-5 text-xs font-bold uppercase">{eyebrow}</p>
-      ) : null}
+      {eyebrow ? <p className="text-primary mb-5 text-xs font-bold uppercase">{eyebrow}</p> : null}
       <Heading id={id} className="section-title">
         {title}
       </Heading>
       {description ? (
-        <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-relaxed sm:text-lg">{description}</p>
+        <p className="text-muted-foreground mt-5 max-w-2xl text-base leading-relaxed sm:text-lg">
+          {description}
+        </p>
       ) : null}
     </div>
   );

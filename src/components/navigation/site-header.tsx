@@ -18,10 +18,20 @@ export function SiteHeader() {
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link
           to="/"
-          className="font-display text-lg font-bold tracking-tight"
+          className="font-display flex min-w-0 items-center gap-2.5 text-lg font-bold tracking-tight"
           onClick={() => setOpen(false)}
         >
-          Java<span className="text-primary">Limo++</span>
+          <img
+            src="/logo.webp"
+            alt="JavaLimo++"
+            width="40"
+            height="40"
+            decoding="async"
+            className="h-8 w-8 shrink-0 object-contain sm:h-9 sm:w-9"
+          />
+          <span aria-hidden="true" className="whitespace-nowrap">
+            Java<span className="text-primary">Limo++</span>
+          </span>
         </Link>
 
         <nav aria-label="Navegación principal" className="hidden items-center gap-1 lg:flex">

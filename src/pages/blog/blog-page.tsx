@@ -3,11 +3,9 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Section } from "@/components/layout/section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { EmptyState } from "@/components/ui/empty-state";
-import { sortedPosts } from "@/content/posts";
+import type { BlogPost } from "@/types/content";
 
-export function BlogPage() {
-  const posts = sortedPosts();
-
+export function BlogPage({ posts }: { posts: readonly BlogPost[] }) {
   return (
     <>
       <PageHeader

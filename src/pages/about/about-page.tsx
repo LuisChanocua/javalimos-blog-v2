@@ -4,7 +4,6 @@ import { Section, SectionHeader } from "@/components/layout/section";
 import { AlliesSection } from "@/components/sections/allies-section";
 import { CtaSection } from "@/components/sections/cta-section";
 import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/empty-state";
 import { inspirations } from "@/content/allies";
 import { principles } from "@/content/site/community";
 import { OPENNESS_NOTE, siteConfig } from "@/config/site";
@@ -53,25 +52,20 @@ export function AboutPage() {
 
       <Section ariaLabelledby="historia" tone="muted">
         <div className="grid gap-10 md:grid-cols-[.7fr_1.3fr] md:gap-20">
-        <SectionHeader id="historia" eyebrow="02 / Origen" title="Nuestra historia" />
-        <div className="text-muted-foreground space-y-5 text-lg leading-relaxed">
-          <p>
-            JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas durante su
-            formación en el {siteConfig.origin.institution}, en {siteConfig.origin.place}.
-          </p>
-          <p>
-            Ese origen forma parte de nuestra memoria, pero no define quién puede pertenecer a la
-            comunidad. Con el tiempo, la intención ha sido abrir el espacio a más personas y a más
-            contextos.
-          </p>
-        </div>
-        </div>
-        {/* Espacio preparado para una línea de tiempo histórica con datos reales. */}
-        <div className="mt-14">
-          <EmptyState
-            title="Línea de tiempo en construcción"
-            description="Aquí documentaremos los momentos clave de la comunidad conforme confirmemos fechas y hechos verificables."
-          />
+          <SectionHeader id="historia" eyebrow="02 / Origen" title="Nuestra historia" />
+          <div className="text-muted-foreground space-y-5 text-lg leading-relaxed">
+            <p>
+              {
+                "JavaLimo++ nació por iniciativa de estudiantes de Ingeniería en Sistemas Computacionales durante su formación en el "
+              }
+              {siteConfig.origin.institution}, en {siteConfig.origin.place}.
+            </p>
+            <p>
+              Ese origen forma parte de nuestra memoria, pero no define quién puede pertenecer a la
+              comunidad. Con el tiempo, la intención ha sido abrir el espacio a más personas y a más
+              contextos.
+            </p>
+          </div>
         </div>
       </Section>
 
@@ -87,7 +81,9 @@ export function AboutPage() {
               key={reason}
               className="grid gap-3 py-5 text-lg leading-relaxed sm:grid-cols-[3rem_1fr]"
             >
-              <span className="text-primary text-xs font-bold">{String(index + 1).padStart(2, "0")}</span>
+              <span className="text-primary text-xs font-bold">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <span>{reason}</span>
             </li>
           ))}
@@ -114,7 +110,7 @@ export function AboutPage() {
         title="Comunidades que nos inspiran"
         description="Clubes, organizaciones y comunidades cuyo trabajo ha influido en la forma en que hacemos las cosas."
         items={inspirations}
-        emptyDescription="Reservamos este espacio para reconocer a esas comunidades. Lo publicaremos cuando tengamos su información confirmada."
+        emptyDescription="Aquí aparecerán comunidades de referencia para JavaLimo++."
       />
 
       <Section ariaLabel="Enlaces relacionados" size="narrow">
